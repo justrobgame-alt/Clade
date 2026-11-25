@@ -280,22 +280,33 @@ ${url}`;
       head.querySelector('[data-x=inv]').onclick = () => shareLeague(d.league);
       head.querySelector('[data-x=all]').onclick = () => { closeAll(); showBoard(null, 'leagues'); };
     }
-    if (!d.my_name) { head.insertAdjacentHTML('beforeend', '<p class="kit-muted">Choose a name to appear on the board. Ranked by puzzles solved, then fewest misses. Your name is shared with LEXICON and Meridian.</p>'); nameForm(head, () => { closeAll(); showBoard(league, tab); }); }
+    if (!d.my_name) { head.insertAdjacentHTML('beforeend', '<p class="kit-muted">Choose a name to appear on the board. Your name is shared with LEXICON and Meridian.</p>'); nameForm(head, () => { closeAll(); showBoard(league, tab); }); }
     else head.insertAdjacentHTML('beforeend', `<p class="kit-muted">You’re playing as <b>${esc(d.my_name)}</b> · ${d.players} named players</p>`);
     const tabs = document.createElement('div'); tabs.className = 'tabs';
     const list = document.createElement('div'); list.className = 'lblist';
     body.append(tabs, list);
-    const T = [['today', 'Today'], ['alltime', 'All-time'], ['streaks', 'Streaks'], ['leagues', 'Leagues']];
-    const row = (r, kind) => `<div class="lbrow ${r.me ? 'me' : ''}"><span class="rk">#${r.rank}</span><span class="nm">${esc(r.name)}${r.sup ? '<em title="Clade Unlimited supporter">∞</em>' : ''}</span><span class="sc">${kind === 'streaks' ? `${r.current} now · best ${r.best}` : `${r.wins} solved · ${r.mistakes} miss${r.mistakes === 1 ? '' : 'es'}`}</span></div>`;
+    const BD = CladeHumor.BOARDS;
+    const T = BD.map(b => [b.k, b.tab]).concat([['leagues', 'Leagues']]);
+    const strikeK = k => k === 'clean' || k === 'messy';
+    const badge = (kind, r) => { const b = BD.find(x => x.k === kind); return b && r.rank === 1 ? `<span class="lbtitle">${esc(b.top)}</span>` : ''; };
+    const score = (r, kind) => kind === 'streaks' ? `${r.current} now · best ${r.best}`
+      : strikeK(kind) ? `${Number(r.avg).toFixed(2)} strikes/game · ${r.played} games`
+      : `${r.wins} solved · ${r.mistakes} miss${r.mistakes === 1 ? '' : 'es'}`;
+    const row = (r, kind) => `<div class="lbrow ${r.me ? 'me' : ''}"><span class="rk">#${r.rank}</span><span class="nm">${esc(r.name)}${r.sup ? '<em title="Clade Unlimited supporter">∞</em>' : ''}${badge(kind, r)}</span><span class="sc">${score(r, kind)}</span></div>`;
     const draw = t => {
       tab = t;
       tabs.innerHTML = T.filter(([k]) => !(league && k === 'leagues')).map(([k, l]) => `<button class="${k === t ? 'on' : ''}" data-t="${k}">${l}</button>`).join('');
       tabs.querySelectorAll('[data-t]').forEach(b => b.onclick = () => draw(b.dataset.t));
       list.innerHTML = '';
       if (t === 'leagues') return drawLeagues(list, d);
-      const rows = d[t] || [], me = d[t + '_me'];
-      list.innerHTML = (rows.length ? rows.map(r => row(r, t)).join('') : `<p class="kit-muted">${t === 'today' ? 'No one has finished a puzzle today yet. Be the first.' : 'No results yet.'}</p>`)
-        + (me && !rows.some(r => r.me) ? '<div class="lbgap">…</div>' + row(me, t) : '');
+      const rows = d[t] || [], me = d[t + '_me'], b = BD.find(x => x.k === t);
+      const min = d.strike_min || 10, mine = d.strike_played || 0;
+      const empty = t === 'today' ? 'No one has finished a puzzle today yet. Be the first.'
+        : strikeK(t) ? `Nobody has played ${min} daily puzzles yet. You’ve played ${mine}.` : 'No results yet.';
+      list.innerHTML = (b ? `<p class="kit-muted lbsub"><b>${esc(b.title)}</b> · ${esc(b.sub)}</p>` : '')
+        + (rows.length ? rows.map(r => row(r, t)).join('') : `<p class="kit-muted">${empty}</p>`)
+        + (me && !rows.some(r => r.me) ? '<div class="lbgap">…</div>' + row(me, t) : '')
+        + (!me && strikeK(t) && rows.length && mine < min ? `<p class="kit-muted">You’ll appear here after ${min} daily puzzles (you’ve played ${mine}).</p>` : '');
     };
     draw(tab);
   }

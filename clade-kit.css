@@ -30,3 +30,6 @@
 .ck-stats .kit-srow span{color:rgba(255,255,255,.85)}
 .ck-next{margin:0 0 6px;font-size:13.5px}
 @media (max-width:420px){.top .modes{margin-left:0}}
+
+.ck-quip{margin:6px auto 10px;max-width:440px;font-family:'Caveat',cursive;font-size:22px;line-height:1.2;text-align:center;opacity:.95}
+.ck-quip.lose::before{content:'🍂 '}.ck-quip.win::before{content:'🌿 '}.ck-quip.great::before{content:'🌟 '}

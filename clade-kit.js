@@ -76,7 +76,7 @@
     const brand = app.querySelector('.brand');
     if (brand) {
       const streak = Kit.stats.siteStreak();
-      brand.insertAdjacentHTML('beforeend', `<div class="ck-tools">${streak ? `<span class="ck-streak" title="Days in a row you've played">🔥 ${streak}</span>` : ''}${Kit.theme.button()}</div>`);
+      brand.insertAdjacentHTML('beforeend', `<div class="ck-tools"><span class="ck-streak" title="${CladeHumor.streakTitle(streak)}">${CladeHumor.streakIcon(streak)} ${streak}</span>${Kit.theme.button()}</div>`);
     }
     app.insertAdjacentHTML('beforeend', Kit.footer());
   };
@@ -101,6 +101,17 @@
   const _result = renderResult;
   renderResult = function (T, G) {
     _result.apply(this, arguments);
+    if (S.done) {
+      const qbox = document.querySelector('#result .result');
+      if (qbox && !qbox.querySelector('.ck-quip')) {
+        const n = S.guesses ? S.guesses.length : null, cap = S.max ?? G.max;
+        const grade = !S.won ? 'lose' : (!G.result && n != null && n <= (cap === Infinity ? 3 : 2)) ? 'great' : 'win';
+        const q = document.createElement('p'); q.className = 'ck-quip ' + grade;
+        q.textContent = CladeHumor.quip(S.game, grade, S.mode !== 'daily');
+        const h = qbox.querySelector('h3'), line = h && h.nextElementSibling && h.nextElementSibling.tagName === 'P' && !h.nextElementSibling.querySelector('i') ? h.nextElementSibling : null;
+        (line || h || qbox.firstElementChild).after(q);
+      }
+    }
     if (S.mode !== 'daily' || !S.done) return;
     const before = Kit.stats.get(S.game).played;
     const n = scoreN();

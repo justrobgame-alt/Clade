@@ -67,3 +67,6 @@
 .yearban small{display:block;font-family:var(--hand);font-size:18px;color:var(--muted)}
 .yearban b{font-family:Fraunces,Georgia,serif;font-size:20px}
 .yearban i{font-style:normal;font-size:22px;color:var(--green)}
+
+.lbtitle{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;font:700 10.5px Inter,sans-serif;letter-spacing:.03em;text-transform:uppercase;background:#c9a227;color:#fff;vertical-align:2px}
+.lbsub{margin:4px 0 8px}
