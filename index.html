@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clade · Daily Biology Games</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="description" content="Four daily biology puzzles: Kinship, Silhouette, Vital Signs and Habitat. A new animal every day.">
+<meta name="theme-color" content="#2f6b4f">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Clade">
+<meta property="og:title" content="Clade · Daily Biology Games">
+<meta property="og:description" content="Four daily biology puzzles. A new animal every day.">
+<script>try{var t=localStorage.getItem('clade:theme');t=t?JSON.parse(t):(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="stylesheet" href="kit.css">
+<style>
+/* ================= CLADE · field-journal look ================= */
+:root{
+  --paper:#f3eee0; --card:#fffcf3; --ink:#22302a; --muted:#6b736d; --line:#e0d8c4; --rule:rgba(110,92,60,.09);
+  --green:#2f6b4f; --good:#3d9a5f; --warm:#e0a03c; --bad:#c9c3b4; --bark:#6b4f35; --leaf:#4f8a5b;
+  --kin:#6b4fa0; --sil:#3b3b45; --vit:#c2454a; --hab:#2a7f8a; --odd:#9c5b33; --twn:#3d6fb6; --hl:#7d6b1e; --siz:#c9871d; --pfam:#6b7d2a; --phab:#2f8a6a; --ori:#b05a2a; --lsh:#4f7a3a;
+  --hand:Caveat,"Segoe Print","Bradley Hand",cursive;
+  --tex:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .28 0 0 0 0 .18 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+:root[data-theme=dark]{--rule:rgba(200,220,200,.05);--bark:#b08a63;--leaf:#6fbf86;--sil:#9a9ab8;--kin:#9a7fd0;--vit:#e06a6e;--hab:#4fb3bf;--odd:#d08a5c;--twn:#7aa3e0;--hl:#c9b552;--siz:#e6a948;--pfam:#a9bd5a;--phab:#5fc49a;--ori:#e08a5a;--lsh:#86b86a}
+*{box-sizing:border-box}
+html,body{margin:0;color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+html{background:var(--paper)}
+body{background:var(--tex),radial-gradient(ellipse at 50% -10%,rgba(255,255,255,.55),transparent 60%),var(--paper);min-height:100vh}
+:root[data-theme=dark] body{background:var(--tex),radial-gradient(ellipse at 50% -10%,rgba(95,181,138,.08),transparent 60%),var(--paper)}
+.wrap{max-width:560px;margin:0 auto;padding:18px 16px 60px}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;margin:0}
+button{font:inherit;cursor:pointer}
+.hidden{display:none!important}
+.hand{font-family:var(--hand)}
+
+/* DNA loader */
+.dna{display:flex;flex-direction:column;align-items:center;gap:10px;padding:90px 0;color:var(--muted)}
+.dna svg{width:72px;height:120px}
+.dna .bp{animation:twist 1.6s ease-in-out infinite}
+@keyframes twist{0%,100%{transform:scaleX(1)}50%{transform:scaleX(-1)}}
+.dna p{font-family:var(--hand);font-size:22px;margin:0}
+
+/* home */
+.brand{display:flex;align-items:center;gap:10px;margin:6px 0 0}
+.brand h1{font-size:38px;font-weight:800;letter-spacing:-.5px}
+.brand .logo{width:40px;height:40px;flex:none}
+.tag{color:var(--muted);margin:2px 0 6px;font-family:var(--hand);font-size:21px;line-height:1.1}
+.helix{display:block;width:100%;height:22px;margin:4px 0 8px;opacity:.55}
+.grove{position:relative;margin:2px 0 18px;padding:10px 12px 8px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(var(--rule) 1px,transparent 1px) 0 0/100% 22px,var(--card)}
+.grove svg{display:block;width:100%;height:auto;max-height:190px}
+.grove .note{position:absolute;left:14px;top:10px;font-family:var(--hand);font-size:19px;color:var(--muted);line-height:1.05}
+.grove .note b{color:var(--leaf);font-size:24px}
+.leafi{transform-box:fill-box;transform-origin:center;animation:grow .6s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes grow{from{transform:scale(0)}}
+.shelf{display:flex;align-items:baseline;gap:10px;margin:18px 2px 10px}
+.shelf h2{font-size:20px}
+.shelf span{font-family:var(--hand);font-size:19px;color:var(--muted)}
+.grid{display:grid;gap:12px}
+.gcard{position:relative;display:flex;gap:14px;align-items:center;text-align:left;width:100%;background:var(--card);border:1px solid var(--line);border-radius:6px 18px 18px 6px;padding:14px 14px 14px 18px;color:var(--ink);transition:transform .15s, box-shadow .15s;box-shadow:0 1px 0 var(--line),0 6px 16px -12px rgba(60,50,30,.35)}
+.gcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;border-radius:6px 0 0 6px;background:var(--c)}
+.gcard:hover{transform:translateY(-2px) rotate(-.3deg);box-shadow:0 10px 24px -12px rgba(60,50,30,.45)}
+.gcard:active{transform:scale(.98)}
+.gicon{flex:none;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;color:var(--c);background:color-mix(in srgb,var(--c) 12%,transparent);border:1.5px dashed color-mix(in srgb,var(--c) 45%,transparent)}
+.gicon svg{width:32px;height:32px}
+.gcard h3{font-size:20px;margin-bottom:1px}
+.gcard .latin{font-family:var(--hand);font-size:17px;color:var(--c);line-height:1;margin-bottom:3px}
+.gcard p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.35}
+.gstat{margin-left:auto;flex:none;font-size:12px;font-weight:600;padding:4px 9px;border-radius:99px;background:#efeadb;color:var(--muted)}
+.gstat.done{background:#dcefe2;color:var(--green)}
+.pin{position:absolute;right:12px;top:-6px;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#f4d27a,#b8842a);box-shadow:0 2px 2px rgba(0,0,0,.25)}
+.foot{margin-top:26px;color:var(--muted);font-size:12.5px;line-height:1.5}
+
+/* game shell */
+.top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.back{border:none;background:var(--card);border:1px solid var(--line);border-radius:12px;width:40px;height:40px;font-size:18px;color:var(--ink)}
+.top h2{font-size:25px}
+.top .num{color:var(--muted);font-size:13px}
+.modes{margin-left:auto;display:flex;background:#e9e2cf;border-radius:12px;padding:3px}
+.modes button{border:none;background:none;padding:6px 10px;border-radius:9px;font-size:13px;font-weight:600;color:var(--muted)}
+.modes button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.levels{display:flex;align-items:center;gap:6px;margin:0 0 10px;font-size:13px;color:var(--muted)}
+.levels .hand{font-size:19px;margin-right:2px}
+.levels button{border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:99px;padding:4px 11px;font-size:12.5px;font-weight:600}
+.levels button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.intro{font-size:14px;color:var(--muted);margin:0 0 12px;line-height:1.45}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:12px;box-shadow:0 6px 16px -14px rgba(60,50,30,.4)}
+
+.inrow{position:relative;display:flex;gap:8px;margin:12px 0}
+.inrow input{flex:1;min-width:0;font:inherit;font-size:16px;padding:12px 14px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);outline:none}
+.inrow input:focus{border-color:var(--accent,var(--green))}
+.inrow .go{border:none;border-radius:14px;padding:0 18px;color:#fff;background:var(--accent,var(--green));font-weight:700}
+.sugg{position:absolute;left:0;right:0;top:100%;margin-top:4px;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.12);z-index:5;overflow:hidden}
+.sugg div{padding:11px 14px;font-size:15px;display:flex;gap:10px;align-items:center;border-bottom:1px solid #f0ece0}
+.sugg div:last-child{border-bottom:none}
+.sugg div.sel,.sugg div:hover{background:#f3efe3}
+.msg{font-size:13.5px;color:var(--vit);min-height:18px;margin:-4px 0 6px}
+.left{font-size:13px;color:var(--muted);margin:-2px 0 8px}
+
+.rows{display:grid;gap:7px}
+.row{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px;font-size:14px;animation:pop .25s ease}
+@keyframes pop{from{transform:scale(.96);opacity:0}to{transform:none;opacity:1}}
+.row .nm{font-weight:600;display:flex;align-items:center;gap:8px}
+.row .em{font-size:20px;width:24px;text-align:center}
+.sub{color:var(--muted);font-size:12.5px}
+
+/* kinship: cladogram on graph paper */
+.clado{padding:10px 10px 12px;background:
+  linear-gradient(color-mix(in srgb,var(--kin) 7%,transparent) 1px,transparent 1px) 0 0/16px 16px,
+  linear-gradient(90deg,color-mix(in srgb,var(--kin) 7%,transparent) 1px,transparent 1px) 0 0/16px 16px,var(--card)}
+.clado svg{display:block;width:100%;height:auto;overflow:visible}
+.clado .ink{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.clado .new{stroke-dasharray:600;stroke-dashoffset:600;animation:draw .9s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.clado text{font-family:Inter,system-ui,sans-serif;fill:var(--ink)}
+.clado .lab{font-weight:600;font-size:13px}
+.clado .cl{font-size:10.5px;fill:var(--muted)}
+.clado .hn{font-family:var(--hand);font-size:16px;fill:var(--kin)}
+.clado .ax{font-family:var(--hand);font-size:15px;fill:var(--muted)}
+.cladohead{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin:2px 4px 6px}
+.cladohead .hand{font-size:20px;color:var(--kin);line-height:1}
+.kbar{height:8px;border-radius:6px;background:#eee8da;margin-top:7px;overflow:hidden}
+.kbar i{display:block;height:100%;border-radius:6px}
+.khead{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.kd{font-weight:700;white-space:nowrap}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.ghost{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:8px 12px;font-size:13.5px;font-weight:600;color:var(--ink)}
+.hint{font-size:13.5px;margin-top:8px;color:var(--ink)}
+.hint b{color:var(--kin)}
+.startclue{display:inline-flex;gap:6px;align-items:center;font-size:13px;background:color-mix(in srgb,var(--kin) 12%,transparent);color:var(--ink);border-radius:99px;padding:5px 11px;margin:0 0 10px}
+
+/* silhouette */
+.silbox{height:250px;border-radius:16px;background:radial-gradient(circle at 50% 45%,#fffdf6,#ece6d6);display:grid;place-items:center;overflow:hidden;position:relative}
+.sil img{width:170px;height:170px;object-fit:contain;display:block}
+.mini{width:22px;height:22px;object-fit:contain;vertical-align:middle}
+:root[data-theme=dark] .mini{filter:invert(.9)}
+.sil{font-size:150px;line-height:1;transition:filter .5s, transform .5s;user-select:none;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+.cluechips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.chip{font-size:12.5px;background:#efeadb;border-radius:99px;padding:5px 10px}
+.chip b{font-weight:600}
+
+/* vitals */
+.clues{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.clue{border-radius:14px;padding:10px 12px;background:#f6f2e8;border:1px dashed #d9d2bf;min-height:62px}
+.clue .k{font-size:11.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:600}
+.clue .v{font-size:19px;font-weight:700;margin-top:3px;font-family:Fraunces,Georgia,serif}
+.clue.on{background:#fff;border:1px solid var(--line)}
+.clue.lock .v{color:#c7bfa9;font-size:16px}
+.vgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:8px}
+.vc{border-radius:9px;padding:6px 4px;text-align:center;font-size:12px;font-weight:600;line-height:1.25;color:#2b2b2b}
+.vc small{display:block;font-weight:500;font-size:10.5px;opacity:.75}
+.c-good{background:#bfe3c8}.c-warm{background:#f6dca6}.c-bad{background:#ebe6d8}
+.legend{display:flex;gap:10px;font-size:11.5px;color:var(--muted);margin-top:8px;flex-wrap:wrap}
+.legend span{display:inline-flex;align-items:center;gap:4px}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+/* habitat */
+.map{width:100%;display:block;border-radius:14px;background:#dcebee}
+.ovl{font-weight:700}
+
+/* result */
+.result{border-radius:18px;padding:16px;margin:12px 0;color:#fff;text-align:center;box-shadow:0 14px 30px -18px rgba(0,0,0,.5)}
+.result .big{font-size:64px;line-height:1.1}
+.result h3{font-size:24px;margin:6px 0 4px}
+.result p{margin:6px 0;font-size:14.5px;line-height:1.45;opacity:.95}
+.result .rb{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+.result button{border:none;border-radius:12px;padding:10px 16px;font-weight:700;background:#fff;color:#22302a}
+.result button.alt{background:rgba(255,255,255,.18);color:#fff}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--ink);color:var(--card);padding:10px 16px;border-radius:12px;font-size:14px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:20}
+.toast.on{opacity:1}
+.sharebox{width:100%;margin-top:10px;font:13px ui-monospace,monospace;border-radius:10px;border:none;padding:8px;color:#22302a;display:none}
+:root[data-theme=dark] .levels button.on{color:#0f1512}
+:root[data-theme=dark] .gstat{background:#26302a}
+@media (prefers-reduced-motion:reduce){.leafi,.clado .new,.dna .bp{animation:none}.clado .new{stroke-dashoffset:0}}
+
+/* Clade Unlimited */
+.unl{margin-left:8px;align-self:center;font-family:var(--hand);font-size:19px;color:var(--green);text-decoration:none;border:1.5px dashed color-mix(in srgb,var(--green) 55%,transparent);border-radius:99px;padding:1px 11px 2px;white-space:nowrap}
+.unl.on{border-style:solid;background:color-mix(in srgb,var(--green) 12%,transparent)}
+.paywall{text-align:center;padding:22px 18px}
+.paywall h3{font-size:22px;margin:8px 0 6px}
+.seal{width:74px;height:74px;margin:0 auto;border-radius:50%;display:grid;place-items:center;font-size:36px;color:#fff;font-weight:800;
+  background:radial-gradient(circle at 35% 30%,#5f9a6e,#2f6b4f 60%,#1f4a36);box-shadow:inset 0 0 0 4px rgba(255,255,255,.25),0 6px 14px -6px rgba(0,0,0,.5)}
+.perks{list-style:none;padding:0;margin:10px auto 16px;max-width:320px;text-align:left}
+.perks li{padding:6px 0 6px 26px;position:relative;font-size:15px;border-bottom:1px dashed var(--line)}
+.perks li::before{content:"🌿";position:absolute;left:0}
+.buy{display:inline-block;background:var(--green);color:#fff;text-decoration:none;font-weight:800;font-size:17px;border-radius:14px;padding:13px 22px;box-shadow:0 8px 18px -10px rgba(47,107,79,.8)}
+.paywall details{margin-top:14px;text-align:left}
+.paywall summary{cursor:pointer}
+.result .rb.extra:empty{display:none}
+</style>
+<link rel="stylesheet" href="clade-kit.css">
+<link rel="stylesheet" href="clade-extras.css">
+<link rel="stylesheet" href="games2.css">
+<link rel="stylesheet" href="games3.css">
+</head>
+<body>
+<div class="wrap" id="app"><div class="dna" role="status"><svg viewBox="0 0 60 120" aria-hidden="true"><g stroke="#2f6b4f" stroke-width="3" stroke-linecap="round"><line class="bp" style="animation-delay:-0.00s;transform-origin:30px 8px" x1="12" y1="8" x2="48" y2="8"/><line class="bp" style="animation-delay:-0.16s;transform-origin:30px 21px" x1="12" y1="21" x2="48" y2="21"/><line class="bp" style="animation-delay:-0.32s;transform-origin:30px 34px" x1="12" y1="34" x2="48" y2="34"/><line class="bp" style="animation-delay:-0.48s;transform-origin:30px 47px" x1="12" y1="47" x2="48" y2="47"/><line class="bp" style="animation-delay:-0.64s;transform-origin:30px 60px" x1="12" y1="60" x2="48" y2="60"/><line class="bp" style="animation-delay:-0.80s;transform-origin:30px 73px" x1="12" y1="73" x2="48" y2="73"/><line class="bp" style="animation-delay:-0.96s;transform-origin:30px 86px" x1="12" y1="86" x2="48" y2="86"/><line class="bp" style="animation-delay:-1.12s;transform-origin:30px 99px" x1="12" y1="99" x2="48" y2="99"/><line class="bp" style="animation-delay:-1.28s;transform-origin:30px 112px" x1="12" y1="112" x2="48" y2="112"/></g></svg><p>Sequencing today's puzzles…</p></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= DATA ================= */
+// Divergence times (millions of years ago) are rounded published estimates (e.g. TimeTree); treat as approximate.
+const TREE = ['All animals',740,[
+ ['Cnidarians',600,['jellyfish','coral']],
+ ['Bilaterians',690,[
+  ['Protostomes',600,[
+   ['Arthropods',560,[
+    ['Arachnids',430,['spider','scorpion']],
+    ['Crustaceans & insects',500,[
+     ['Decapods',400,['shrimp',['Crabs & lobsters',300,['crab','lobster']]]],
+     ['Complete-metamorphosis insects',350,[
+      ['Bees, wasps & ants',150,['bee','ant']],
+      ['Beetles, flies & butterflies',330,['ladybug',['Flies & butterflies',300,['butterfly','mosquito']]]]
+     ]]
+    ]]
+   ]],
+   ['Molluscs',530,['snail',['Cephalopods',270,['octopus','squid']]]]
+  ]],
+  ['Deuterostomes',620,['starfish',
+   ['Jawed vertebrates',465,['shark',
+    ['Bony vertebrates',435,[
+     ['Ray-finned fish',230,['salmon',['Spiny-finned fish',100,['clownfish','pufferfish']]]],
+     ['Lobe-finned vertebrates',415,['coelacanth',
+      ['Tetrapods',352,['frog',
+       ['Amniotes',319,[
+        ['Reptiles (incl. birds)',280,[
+         ['Lizards & snakes',170,['iguana','python','komodo']],
+         ['Turtles & archosaurs',255,['tortoise',
+          ['Archosaurs',245,['crocodile',
+           ['Dinosaurs',230,['brachiosaurus',
+            ['Theropod dinosaurs',165,['trex',
+             ['Birds',110,['ostrich',
+              ['Modern-jawed birds',90,[
+               ['Landfowl & waterfowl',75,[
+                ['Landfowl',37,['chicken','turkey','peacock']],
+                ['Waterfowl',25,['duck','swan']]
+               ]],
+               ['Neoaves',70,['hummingbird','flamingo','penguin',
+                ['Pigeons & doves',30,['dove','dodo']],
+                ['Land birds',66,[
+                 ['Raptors & owls',64,['eagle','owl']],
+                 ['Parrots & songbirds',60,['parrot','sparrow']]
+                ]]
+               ]]
+              ]]
+             ]]
+            ]]
+           ]]
+          ]]
+         ]]
+        ]],
+        ['Mammals',180,['platypus',
+         ['Live-bearing mammals',160,[
+          ['Kangaroos & koalas',50,['kangaroo','koala']],
+          ['Placental mammals',102,[
+           ['Atlantogenata',98,[
+            ['Afrotherians',75,['aardvark',['Elephants & manatees',62,['manatee',['Elephants',6,['elephant','mammoth']]]]]],
+            ['Sloths & armadillos',65,['sloth','armadillo']]
+           ]],
+           ['Boreoeutherians',92,[
+            ['Primates, rodents & rabbits',88,[
+             ['Rodents & rabbits',80,['rabbit',
+              ['Rodents',70,['squirrel','beaver','capybara',['Mice & rats',12,['mouse','rat']]]]
+             ]],
+             ['Primates',74,['lemur',
+              ['Old World monkeys & apes',29,['macaque',
+               ['Great apes',16,['orangutan',
+                ['African apes',9,['gorilla',['Humans & chimps',6.5,['human','chimp']]]]
+               ]]
+              ]]
+             ]]
+            ]],
+            ['Laurasiatherians',84,['hedgehog',
+             ['Bats & hoofed/carnivores',80,['bat',
+              ['Carnivores & hoofed mammals',78,[
+               ['Carnivorans & pangolins',72,['pangolin',
+                ['Carnivorans',54,[
+                 ['Cat-like carnivorans',35,['hyena',['Cats',11,['cat',['Big cats',4,['lion','tiger','leopard']]]]]],
+                 ['Dog-like carnivorans',45,[
+                  ['Canids',9,['fox',['Dogs & wolves',0.03,['dog','wolf']]]],
+                  ['Bears, seals & weasel-kin',40,[
+                   ['Bears',20,['panda',['Brown & polar bears',0.5,['brownbear','polarbear']]]],
+                   ['Seals & weasel-kin',37,['seal',
+                    ['Skunks, raccoons & weasels',30,['skunk','raccoon',['Weasel family',20,['otter','badger']]]]
+                   ]]
+                  ]]
+                 ]]
+                ]]
+               ]],
+               ['Hoofed mammals',76,[
+                ['Odd-toed ungulates',56,['rhino',['Horses & zebras',4,['horse','zebra']]]],
+                ['Even-toed ungulates & whales',62,[
+                 ['Camels & llamas',10,['camel','llama']],
+                 ['Pigs, ruminants & whales',60,['pig',
+                  ['Ruminants & whales',58,[
+                   ['Hippos & whales',55,['hippo',['Whales',36,['bluewhale',['Dolphins',10,['dolphin','orca']]]]]],
+                   ['Ruminants',27,['giraffe',
+                    ['Deer & bovids',25,['deer',
+                     ['Bovids',20,[
+                      ['Cattle & buffalo',5,['buffalo',['Cattle & bison',1.5,['cow','bison']]]],
+                      ['Goats & sheep',6,['goat','sheep']]
+                     ]]
+                    ]]
+                   ]]
+                  ]]
+                 ]]
+                ]]
+               ]]
+              ]]
+             ]]
+            ]]
+           ]]
+          ]]
+         ]]
+        ]]
+       ]]
+      ]]
+     ]]
+    ]]
+   ]]
+  ]]
+ ]]
+]];
+
+// id, name, emoji, group, kg, lifespan(yr), heart(bpm, resting), speed(km/h, fastest mode), habitat, diet, range, fact, aliases, flags
+// range: 'ALL' (wherever humans live), 'SEA' (all oceans), or list of ellipses [lon,lat,rx,ry]; m:1 = marine (sea dots count)
+let A = [
+{id:'human',n:'Human',e:'🧍',g:'Mammal',kg:70,life:80,hr:70,spd:37,hab:'Everywhere',diet:'Omnivore',r:'ALL',al:['people','person','homo sapiens'],f:'Our lineage split from chimpanzees only about 6–7 million years ago.'},
+{id:'chimp',n:'Chimpanzee',g:'Mammal',kg:50,life:40,hr:90,spd:40,hab:'Tropical forest',diet:'Omnivore',r:[[-6,8,7,3],[18,0,10,5]],al:['chimp','bonobo'],f:'Chimps are more closely related to humans than they are to gorillas.'},
+{id:'gorilla',n:'Gorilla',e:'🦍',g:'Mammal',kg:160,life:40,hr:70,spd:32,hab:'Tropical forest',diet:'Herbivore',r:[[13,-1,5,3],[29,-1,2,2]],f:'Gorillas are the largest living primates, yet they eat mostly leaves and stems.'},
+{id:'orangutan',n:'Orangutan',e:'🦧',g:'Mammal',kg:70,life:45,hr:70,spd:5,hab:'Tropical forest',diet:'Herbivore (fruit)',r:[[114,1,4,3],[98,3,2,2]],f:'Orangutans spend nearly their whole lives in trees and build a fresh nest every night.'},
+{id:'macaque',n:'Macaque',e:'🐒',g:'Mammal',kg:8,life:25,hr:150,spd:30,hab:'Forests & cities',diet:'Omnivore',r:[[92,27,22,8]],al:['monkey','rhesus'],f:'Apart from humans, macaques have the widest range of any primate.'},
+{id:'lemur',n:'Ring-tailed lemur',g:'Mammal',kg:2.5,life:18,hr:120,spd:20,hab:'Dry forest',diet:'Herbivore',r:[[46.5,-21,3,4]],al:['lemur'],f:'Lemurs live wild only on Madagascar. Their ancestors probably drifted there on floating vegetation.'},
+{id:'mouse',n:'House mouse',e:'🐁',g:'Mammal',kg:0.02,life:2,hr:600,spd:13,hab:'Wherever humans live',diet:'Omnivore',r:'ALL',al:['mouse'],f:'A mouse heart beats about 10 times a second.'},
+{id:'rat',n:'Brown rat',e:'🐀',g:'Mammal',kg:0.3,life:3,hr:350,spd:13,hab:'Wherever humans live',diet:'Omnivore',r:'ALL',al:['rat'],f:'Rats can tread water for days and squeeze through holes the size of a coin.'},
+{id:'squirrel',n:'Red squirrel',e:'🐿️',g:'Mammal',kg:0.3,life:6,hr:350,spd:20,hab:'Conifer forest',diet:'Herbivore (seeds & nuts)',r:[[65,56,70,9]],al:['squirrel'],f:'Squirrels forget where they bury many of their nuts, and some of those nuts grow into new trees.'},
+{id:'beaver',n:'Beaver',e:'🦫',g:'Mammal',kg:20,life:15,hr:100,spd:8,hab:'Rivers & lakes',diet:'Herbivore (bark)',r:[[-100,52,30,10]],f:'Beaver teeth are orange because the enamel contains iron, which makes them stronger.'},
+{id:'capybara',n:'Capybara',g:'Mammal',kg:50,life:9,hr:100,spd:35,hab:'Wetlands & grassland',diet:'Herbivore (grass)',r:[[-58,-15,14,14]],f:'The capybara is the world\'s largest rodent, and it can stay underwater for about five minutes.'},
+{id:'rabbit',n:'European rabbit',e:'🐇',g:'Mammal',kg:2,life:9,hr:200,spd:56,hab:'Grassland',diet:'Herbivore',r:[[0,44,12,6],[140,-30,15,8]],al:['rabbit','bunny','hare'],f:'Rabbits are not rodents. Their nearest relatives are rodents, but the two lines split about 80 million years ago.'},
+{id:'kangaroo',n:'Red kangaroo',e:'🦘',g:'Mammal',kg:85,life:22,hr:120,spd:70,hab:'Desert & grassland',diet:'Herbivore',r:[[135,-25,15,8]],al:['kangaroo'],f:'A newborn kangaroo is about the size of a jellybean.'},
+{id:'koala',n:'Koala',e:'🐨',g:'Mammal',kg:9,life:15,hr:70,spd:10,hab:'Eucalyptus forest',diet:'Herbivore (eucalyptus)',r:[[148,-28,4,9]],al:['koala bear'],f:'Koalas sleep up to 20 hours a day to save energy, because eucalyptus leaves give very little.'},
+{id:'platypus',n:'Platypus',g:'Mammal',kg:1.5,hab:'Rivers & streams',diet:'Carnivore (invertebrates)',r:[[147,-32,3,9]],f:'The platypus lays eggs and finds its prey by sensing electric fields.'},
+{id:'aardvark',n:'Aardvark',g:'Mammal',f:'Elephants are closer relatives of aardvarks than they are of rhinos.'},
+{id:'manatee',n:'Manatee',g:'Mammal',al:['sea cow','dugong'],f:'The manatee\'s closest living relative is the elephant.'},
+{id:'elephant',n:'African elephant',e:'🐘',g:'Mammal',kg:6000,life:70,hr:30,spd:40,hab:'Savanna & forest',diet:'Herbivore',r:[[25,-5,20,15]],al:['elephant'],f:'Elephants pick up rumbles through their feet from kilometres away.'},
+{id:'mammoth',n:'Woolly mammoth',e:'🦣',g:'Mammal (extinct)',x:1,al:['mammoth'],f:'Mammoths are closer to Asian elephants than African ones, and the last ones died out only about 4,000 years ago.'},
+{id:'sloth',n:'Three-toed sloth',e:'🦥',g:'Mammal',kg:4,life:20,hr:100,spd:0.25,hab:'Rainforest canopy',diet:'Herbivore (leaves)',r:[[-65,-5,15,12],[-82,9,4,3]],al:['sloth'],f:'Algae grows in a sloth\'s fur and helps camouflage it.'},
+{id:'armadillo',n:'Armadillo',g:'Mammal',f:'The nine-banded armadillo almost always gives birth to identical quadruplets.'},
+{id:'hedgehog',n:'Hedgehog',e:'🦔',g:'Mammal',kg:0.8,life:5,hr:190,spd:7,hab:'Woodland & gardens',diet:'Insectivore',r:[[10,50,18,9]],f:'A hedgehog has around 5,000–7,000 spines.'},
+{id:'bat',n:'Little brown bat',e:'🦇',g:'Mammal',kg:0.01,life:30,hr:400,spd:35,hab:'Forests & caves',diet:'Insectivore',r:[[-95,45,30,12]],al:['bat'],f:'This tiny bat weighs about as much as two sugar cubes, yet it can live more than 30 years.'},
+{id:'pangolin',n:'Pangolin',g:'Mammal',f:'Pangolins look like anteaters, but their closest living relatives are cats and dogs.'},
+{id:'hyena',n:'Hyena',g:'Mammal',f:'Hyenas look dog-like, but they belong to the cat side of the carnivore family tree.'},
+{id:'cat',n:'House cat',e:'🐈',g:'Mammal',kg:4.5,life:15,hr:150,spd:48,hab:'Wherever humans live',diet:'Carnivore',r:'ALL',al:['cat','kitten'],f:'House cats and lions last shared an ancestor about 11 million years ago.'},
+{id:'lion',n:'Lion',e:'🦁',g:'Mammal',kg:190,life:14,hr:50,spd:80,hab:'Savanna',diet:'Carnivore',r:[[20,0,18,13],[71,21,2,2]],f:'A small population of wild lions still lives in India\'s Gir Forest.'},
+{id:'tiger',n:'Tiger',e:'🐅',g:'Mammal',kg:220,life:15,hr:60,spd:65,hab:'Forest & grassland',diet:'Carnivore',r:[[80,22,8,8],[100,15,8,8],[135,46,4,4]],f:'Each tiger\'s stripes are unique, and the skin underneath is striped too.'},
+{id:'leopard',n:'Leopard',e:'🐆',g:'Mammal',kg:60,life:15,hr:60,spd:58,hab:'Savanna & forest',diet:'Carnivore',r:[[20,-2,22,15],[80,20,12,10]],al:['jaguar','cheetah'],f:'Leopards haul prey heavier than themselves up into trees.'},
+{id:'dog',n:'Dog',e:'🐕',g:'Mammal',kg:30,life:12,hr:90,spd:45,hab:'Wherever humans live',diet:'Omnivore',r:'ALL',al:['puppy'],f:'Dogs were domesticated from wolves within roughly the last 30,000 years.'},
+{id:'wolf',n:'Gray wolf',e:'🐺',g:'Mammal',kg:45,life:13,hr:80,spd:60,hab:'Forest, tundra & steppe',diet:'Carnivore',r:[[-110,58,40,15],[70,55,70,15]],al:['wolf'],f:'Wolves can trot for hours and cover more than 50 km in a single night.'},
+{id:'fox',n:'Red fox',e:'🦊',g:'Mammal',kg:6,life:5,hr:100,spd:50,hab:'Almost anywhere',diet:'Omnivore',r:[[-100,50,35,15],[60,50,80,15],[135,-30,15,8]],al:['fox'],f:'Foxes may use Earth\'s magnetic field to aim their pounces.'},
+{id:'panda',n:'Giant panda',e:'🐼',g:'Mammal',kg:100,life:20,hr:60,spd:32,hab:'Bamboo forest',diet:'Herbivore (bamboo)',r:[[104,31,3,3]],al:['panda'],f:'Pandas are real bears, but they eat bamboo for up to 14 hours a day.'},
+{id:'brownbear',n:'Brown bear',e:'🐻',g:'Mammal',kg:300,life:25,hr:50,spd:56,hab:'Forest & tundra',diet:'Omnivore',r:[[-140,62,18,7],[90,58,70,10]],al:['bear','grizzly'],f:'During hibernation a bear\'s heart rate can fall below 10 beats a minute.'},
+{id:'polarbear',n:'Polar bear',e:'🐻‍❄️',g:'Mammal',kg:450,life:25,hr:70,spd:40,hab:'Arctic sea ice',diet:'Carnivore',r:[[-90,75,60,6],[60,77,80,5]],m:1,f:'Polar bears split from brown bears so recently that the two can still interbreed.'},
+{id:'seal',n:'Harbor seal',e:'🦭',g:'Mammal',kg:100,life:30,hr:100,spd:35,hab:'Coastal seas',diet:'Carnivore',r:[[-30,58,35,10],[-150,52,30,8]],m:1,al:['seal','sea lion','walrus'],f:'On a dive, a seal\'s heart can slow from about 100 to around 10 beats a minute.'},
+{id:'skunk',n:'Striped skunk',e:'🦨',g:'Mammal',kg:3,life:4,hr:150,spd:16,hab:'Woodland & farmland',diet:'Omnivore',r:[[-100,40,25,12]],al:['skunk'],f:'A skunk can spray accurately up to about 3 metres.'},
+{id:'raccoon',n:'Raccoon',e:'🦝',g:'Mammal',kg:7,life:5,hr:110,spd:24,hab:'Forests & cities',diet:'Omnivore',r:[[-95,38,25,14]],f:'Raccoons have very sensitive front paws, and wetting them makes them even more sensitive.'},
+{id:'otter',n:'Eurasian otter',e:'🦦',g:'Mammal',kg:9,life:10,hr:140,spd:29,hab:'Rivers & coasts',diet:'Carnivore (fish)',r:[[50,50,70,14]],al:['otter','sea otter'],f:'Otters have some of the densest fur of any mammal.'},
+{id:'badger',n:'European badger',e:'🦡',g:'Mammal',kg:12,life:14,hr:100,spd:30,hab:'Woodland',diet:'Omnivore',r:[[20,50,25,10]],al:['badger','honey badger'],f:'Badger families can use the same burrow systems for hundreds of years.'},
+{id:'rhino',n:'White rhino',e:'🦏',g:'Mammal',kg:2300,life:45,hr:40,spd:50,hab:'Savanna',diet:'Herbivore (grass)',r:[[28,-24,8,6]],al:['rhinoceros','rhino'],f:'A rhino horn is made of keratin, the same protein as your fingernails.'},
+{id:'horse',n:'Horse',e:'🐎',g:'Mammal',kg:500,life:30,hr:36,spd:88,hab:'Wherever humans live',diet:'Herbivore',r:'ALL',al:['pony','donkey'],f:'Horses are more closely related to rhinos than to cows.'},
+{id:'zebra',n:'Plains zebra',e:'🦓',g:'Mammal',kg:350,life:25,hr:60,spd:65,hab:'Savanna',diet:'Herbivore (grass)',r:[[32,-8,10,15]],al:['zebra'],f:'Zebra stripes seem to help keep biting flies away.'},
+{id:'camel',n:'Dromedary camel',e:'🐪',g:'Mammal',kg:500,life:40,hr:45,spd:65,hab:'Desert',diet:'Herbivore',r:[[20,24,30,8],[45,24,12,8],[133,-25,12,6]],al:['camel'],f:'Camels first evolved in North America and only later spread to Asia and Africa.'},
+{id:'llama',n:'Llama',e:'🦙',g:'Mammal',kg:150,life:20,hr:70,spd:56,hab:'Andes mountains',diet:'Herbivore',r:[[-68,-17,4,8]],al:['alpaca'],f:'Llamas are camels that stayed in the Americas.'},
+{id:'pig',n:'Wild boar',e:'🐖',g:'Mammal',kg:100,life:15,hr:80,spd:40,hab:'Forest & farmland',diet:'Omnivore',r:[[60,45,70,12],[5,34,8,3]],al:['pig','boar','hog'],f:'Pigs are closer relatives of whales than they are of horses.'},
+{id:'hippo',n:'Hippopotamus',e:'🦛',g:'Mammal',kg:1500,life:40,hr:60,spd:30,hab:'Rivers & lakes',diet:'Herbivore (grass)',r:[[25,-5,18,12]],al:['hippo'],f:'The whale\'s closest living relative is the hippo.'},
+{id:'bluewhale',n:'Blue whale',e:'🐋',g:'Mammal',kg:150000,life:90,hr:8,spd:35,hab:'Open ocean',diet:'Carnivore (krill)',r:'SEA',m:1,al:['whale','humpback'],f:'A blue whale\'s heart weighs about as much as a small car.'},
+{id:'dolphin',n:'Bottlenose dolphin',e:'🐬',g:'Mammal',kg:300,life:40,hr:100,spd:35,hab:'Warm & temperate seas',diet:'Carnivore (fish)',r:[[0,0,180,40]],m:1,al:['dolphin','porpoise'],f:'Each dolphin has its own signature whistle that works like a name.'},
+{id:'orca',n:'Orca',g:'Mammal',kg:5000,life:50,hr:60,spd:56,hab:'All oceans',diet:'Carnivore',r:'SEA',m:1,al:['killer whale'],f:'The orca, or "killer whale", is actually the largest species of dolphin.'},
+{id:'giraffe',n:'Giraffe',e:'🦒',g:'Mammal',kg:1200,life:25,hr:60,spd:60,hab:'Savanna',diet:'Herbivore (leaves)',r:[[30,-5,14,12]],f:'A giraffe has the same number of neck bones as you: seven.'},
+{id:'deer',n:'Red deer',e:'🦌',g:'Mammal',kg:160,life:18,hr:70,spd:70,hab:'Forest & moorland',diet:'Herbivore',r:[[20,50,25,10]],al:['deer','elk','moose','reindeer'],f:'Deer grow a completely new set of antlers every year.'},
+{id:'cow',n:'Cow',e:'🐄',g:'Mammal',kg:700,life:20,hr:60,spd:40,hab:'Farmland',diet:'Herbivore (grass)',r:'ALL',al:['cattle','bull','ox'],f:'A cow has one stomach with four separate chambers.'},
+{id:'bison',n:'American bison',e:'🦬',g:'Mammal',kg:900,life:20,hr:50,spd:56,hab:'Grassland',diet:'Herbivore (grass)',r:[[-105,47,10,10]],al:['bison','buffalo (american)'],f:'Bison can sprint at about 55 km/h, faster than a horse can manage over short distances.'},
+{id:'buffalo',n:'Water buffalo',e:'🐃',g:'Mammal',kg:800,life:25,hr:60,spd:50,hab:'Wetlands & farmland',diet:'Herbivore',r:[[88,20,18,10]],al:['buffalo'],f:'Water buffalo milk is used to make real mozzarella.'},
+{id:'goat',n:'Goat',e:'🐐',g:'Mammal',kg:60,life:15,hr:80,spd:25,hab:'Farmland & mountains',diet:'Herbivore',r:'ALL',f:'Goats have rectangular pupils, which give them a wide view of the horizon.'},
+{id:'sheep',n:'Sheep',e:'🐑',g:'Mammal',kg:70,life:12,hr:75,spd:40,hab:'Farmland',diet:'Herbivore (grass)',r:'ALL',al:['lamb','ram'],f:'Sheep can recognise the faces of dozens of other sheep, and of humans too.'},
+{id:'chicken',n:'Chicken',e:'🐔',g:'Bird',kg:2.5,life:8,hr:300,spd:14,hab:'Farmland',diet:'Omnivore',r:'ALL',al:['hen','rooster'],f:'T. rex was more closely related to the chicken than to Brachiosaurus.'},
+{id:'turkey',n:'Wild turkey',e:'🦃',g:'Bird',kg:8,life:10,hr:140,spd:88,hab:'Woodland',diet:'Omnivore',r:[[-90,38,20,12]],al:['turkey'],f:'Wild turkeys can fly, and in short bursts they reach about 88 km/h.'},
+{id:'peacock',n:'Indian peafowl',e:'🦚',g:'Bird',kg:5,hab:'Forest & farmland',diet:'Omnivore',r:[[78,18,6,10]],al:['peacock','peafowl'],f:'A peacock\'s "tail" is made of long back feathers called a train.'},
+{id:'duck',n:'Mallard',e:'🦆',g:'Bird',kg:1.1,life:10,hr:180,spd:88,hab:'Wetlands',diet:'Omnivore',r:[[-100,45,35,12],[60,50,80,12]],al:['duck'],f:'Ducks can sleep with one eye open and half of their brain awake.'},
+{id:'swan',n:'Mute swan',e:'🦢',g:'Bird',kg:11,life:20,hr:90,spd:88,hab:'Lakes & rivers',diet:'Herbivore',r:[[25,52,30,8]],al:['swan','goose'],f:'Mute swans are among the heaviest birds that can fly.'},
+{id:'dove',n:'Pigeon',e:'🕊️',g:'Bird',kg:0.35,life:6,hr:200,spd:90,hab:'Cities & cliffs',diet:'Herbivore (seeds)',r:'ALL',al:['dove','rock dove'],f:'The dodo was a giant pigeon.'},
+{id:'dodo',n:'Dodo',e:'🦤',g:'Bird (extinct)',x:1,f:'Dodos lived only on Mauritius and were gone within about a century of humans arriving.'},
+{id:'flamingo',n:'Greater flamingo',e:'🦩',g:'Bird',kg:3,hab:'Salt lakes & lagoons',diet:'Filter feeder',r:[[0,30,15,6],[30,-5,15,20],[65,22,12,6]],al:['flamingo'],f:'Flamingos get their pink colour from pigments in the shrimp and algae they eat.'},
+{id:'penguin',n:'Emperor penguin',e:'🐧',g:'Bird',kg:30,life:20,hr:70,spd:10,hab:'Antarctic sea ice',diet:'Carnivore (fish)',r:[[0,-72,180,4]],m:1,al:['penguin'],f:'On deep dives, an emperor penguin\'s heart can slow to just a few beats a minute.'},
+{id:'eagle',n:'Bald eagle',e:'🦅',g:'Bird',kg:5,life:25,hr:150,spd:160,hab:'Lakes & coasts',diet:'Carnivore (fish)',r:[[-110,52,35,15]],al:['eagle','hawk','falcon'],f:'A bald eagle\'s nest can weigh more than a tonne.'},
+{id:'owl',n:'Barn owl',e:'🦉',g:'Bird',kg:0.5,life:4,hr:300,spd:70,hab:'Farmland & grassland',diet:'Carnivore (rodents)',r:[[0,10,180,45]],al:['owl'],f:'Barn owls can catch mice in total darkness, using hearing alone.'},
+{id:'parrot',n:'Scarlet macaw',e:'🦜',g:'Bird',kg:1,life:50,hr:200,spd:56,hab:'Rainforest',diet:'Herbivore (fruit & seeds)',r:[[-65,-5,15,12],[-87,15,4,4]],al:['parrot','macaw'],f:'Parrots are closer relatives of sparrows than they are of eagles.'},
+{id:'sparrow',n:'House sparrow',e:'🐦',g:'Bird',kg:0.03,life:3,hr:460,spd:40,hab:'Cities & farmland',diet:'Omnivore',r:'ALL',al:['sparrow','bird','songbird','crow','robin'],f:'House sparrows have followed humans almost everywhere farming spread.'},
+{id:'hummingbird',n:'Ruby-throated hummingbird',g:'Bird',kg:0.004,life:5,hr:1200,spd:50,hab:'Woodland & gardens',diet:'Nectar & insects',r:[[-85,38,15,12],[-90,15,8,5]],al:['hummingbird'],f:'A hummingbird\'s heart can beat more than 1,200 times a minute.'},
+{id:'ostrich',n:'Ostrich',g:'Bird',kg:120,life:45,hr:60,spd:70,hab:'Savanna & desert',diet:'Omnivore',r:[[25,0,20,18]],al:['emu'],f:'An ostrich\'s eye is bigger than its brain.'},
+{id:'trex',n:'Tyrannosaurus rex',e:'🦖',g:'Reptile (dinosaur)',x:1,al:['t rex','t. rex','trex','tyrannosaurus'],f:'T. rex lived closer in time to us than to Stegosaurus.'},
+{id:'brachiosaurus',n:'Brachiosaurus',e:'🦕',g:'Reptile (dinosaur)',x:1,al:['sauropod','brontosaurus','diplodocus','dinosaur'],f:'Sauropods like Brachiosaurus had air sacs in their bones, just as birds do.'},
+{id:'crocodile',n:'Saltwater crocodile',e:'🐊',g:'Reptile',kg:500,life:70,hr:30,spd:29,hab:'Rivers, mangroves & coasts',diet:'Carnivore',r:[[120,-5,30,15],[85,15,6,6]],m:1,al:['crocodile','alligator','croc'],f:'Crocodiles are more closely related to birds than to lizards.'},
+{id:'tortoise',n:'Galápagos tortoise',e:'🐢',g:'Reptile',kg:250,life:150,hr:10,spd:0.3,hab:'Volcanic islands',diet:'Herbivore',r:[[-90.5,-0.6,2,2]],m:1,al:['tortoise','turtle','galapagos tortoise'],f:'Galápagos tortoises can live for more than 150 years.'},
+{id:'iguana',n:'Green iguana',e:'🦎',g:'Reptile',kg:4,life:15,hr:60,spd:35,hab:'Rainforest',diet:'Herbivore',r:[[-70,2,20,16]],al:['iguana','lizard','gecko','chameleon'],f:'Iguanas have a third "eye" on top of the head that senses light.'},
+{id:'python',n:'Burmese python',e:'🐍',g:'Reptile',kg:75,life:25,hr:25,spd:1.6,hab:'Forest & swamps',diet:'Carnivore',r:[[100,18,12,8]],al:['python','snake','cobra','boa'],f:'After a big meal, a python\'s heart can grow by about 40%.'},
+{id:'komodo',n:'Komodo dragon',g:'Reptile',kg:80,life:30,hr:50,spd:20,hab:'Dry islands',diet:'Carnivore',r:[[120,-8.6,2,2]],m:1,al:['komodo'],f:'Komodo dragons are close relatives of snakes, and they have venom glands.'},
+{id:'frog',n:'Common frog',e:'🐸',g:'Amphibian',kg:0.03,life:8,hr:40,spd:8,hab:'Ponds & damp woods',diet:'Insectivore',r:[[20,52,30,10]],al:['frog','toad'],f:'Frogs press their eyeballs down into their mouths to help swallow food.'},
+{id:'shark',n:'Great white shark',e:'🦈',g:'Fish',kg:1100,life:70,hr:25,spd:56,hab:'Coastal seas',diet:'Carnivore',r:[[-125,32,10,8],[20,-35,10,6],[140,-35,20,8],[-70,38,10,8]],m:1,al:['shark','great white'],f:'You are more closely related to a salmon than a salmon is to a shark.'},
+{id:'salmon',n:'Atlantic salmon',e:'🐟',g:'Fish',kg:5,hab:'Rivers & North Atlantic',diet:'Carnivore',r:[[-30,55,35,12]],m:1,al:['salmon','fish','trout','tuna'],f:'Salmon use smell to find their way back to the stream where they hatched.'},
+{id:'clownfish',n:'Clownfish',e:'🐠',g:'Fish',kg:0.03,hab:'Coral reefs',diet:'Omnivore',r:[[130,-5,30,15]],m:1,al:['clownfish','tropical fish'],f:'All clownfish hatch male, and the dominant one in a group can become female.'},
+{id:'pufferfish',n:'Pufferfish',e:'🐡',g:'Fish',al:['puffer','blowfish'],f:'Many pufferfish carry tetrodotoxin, a poison far deadlier than cyanide.'},
+{id:'coelacanth',n:'Coelacanth',g:'Fish',f:'The coelacanth is a closer relative of humans than of tuna.'},
+{id:'starfish',n:'Starfish',g:'Echinoderm',al:['sea star','sea urchin'],f:'Starfish belong to the same major animal branch as vertebrates.'},
+{id:'jellyfish',n:'Jellyfish',e:'🪼',g:'Cnidarian',f:'Jellyfish have no brain, heart or bones.'},
+{id:'coral',n:'Coral',e:'🪸',g:'Cnidarian',f:'Coral is a colony of tiny animals, each one a relative of jellyfish.'},
+{id:'spider',n:'Spider',e:'🕷️',g:'Arachnid',al:['tarantula'],f:'Spiders are not insects. Their lines split more than 500 million years ago.'},
+{id:'scorpion',n:'Scorpion',e:'🦂',g:'Arachnid',f:'Scorpions glow blue-green under ultraviolet light.'},
+{id:'shrimp',n:'Shrimp',e:'🦐',g:'Crustacean',al:['prawn'],f:'Insects evolved from within the crustaceans, so shrimp are their cousins.'},
+{id:'crab',n:'Crab',e:'🦀',g:'Crustacean',f:'The crab body shape has evolved at least five separate times. Biologists call it "carcinisation".'},
+{id:'lobster',n:'Lobster',e:'🦞',g:'Crustacean',al:['crayfish'],f:'Lobsters taste with their legs.'},
+{id:'bee',n:'Honey bee',e:'🐝',g:'Insect',al:['bee','wasp','hornet'],f:'Bees are basically wasps that went vegetarian.'},
+{id:'ant',n:'Ant',e:'🐜',g:'Insect',f:'Ants evolved from wasp-like ancestors.'},
+{id:'ladybug',n:'Ladybug',e:'🐞',g:'Insect',al:['ladybird','beetle'],f:'About one in four known animal species is a beetle.'},
+{id:'butterfly',n:'Butterfly',e:'🦋',g:'Insect',al:['moth'],f:'Butterflies taste with their feet.'},
+{id:'mosquito',n:'Mosquito',e:'🦟',g:'Insect',al:['fly'],f:'Only female mosquitoes bite. They need blood to make eggs.'},
+{id:'snail',n:'Snail',e:'🐌',g:'Mollusc',al:['slug'],f:'A garden snail has thousands of tiny teeth on a ribbon-like tongue.'},
+{id:'octopus',n:'Octopus',e:'🐙',g:'Mollusc',f:'An octopus has three hearts and blue blood.'},
+{id:'squid',n:'Squid',e:'🦑',g:'Mollusc',al:['cuttlefish'],f:'Giant squid have the largest eyes in the animal kingdom, as big as dinner plates.'},
+];
+
+// Rough land outlines, [lon,lat]
+const LAND = [
+[[-168,66],[-162,70],[-156,71.5],[-140,70],[-128,70],[-115,68],[-95,72],[-85,70],[-80,63],[-90,57],[-82,52],[-79,55],[-77,62],[-70,60],[-64,60],[-60,55],[-56,52],[-60,47],[-66,44],[-70,42],[-74,40],[-76,35],[-81,31],[-80,25],[-82,27],[-84,30],[-90,29.5],[-95,29],[-97,26],[-97,22],[-95,19],[-90,21],[-87,21],[-88,16],[-84,15],[-83,10],[-79,9],[-77,8],[-80,7],[-83,8.5],[-86,12],[-92,14.5],[-96,16],[-105,20],[-106,23],[-110,24],[-112,29],[-114,31.5],[-113,29],[-110,23],[-112,25],[-115,28],[-117,32.5],[-121,35],[-124,40],[-124,46],[-125,49],[-130,54],[-135,58],[-140,60],[-146,61],[-152,59],[-158,57],[-164,55],[-158,59],[-165,61],[-166,64]],
+[[-73,78],[-60,82],[-30,83.5],[-18,80],[-20,72],[-24,69],[-40,65],[-44,60],[-50,63],[-54,67],[-58,75],[-66,77]],
+[[-80,73],[-68,70],[-62,66],[-66,62],[-75,65],[-80,70]],
+[[-95,80],[-75,83],[-62,82],[-75,77],[-90,76],[-100,75],[-110,77],[-118,75],[-122,72],[-115,70],[-100,70]],
+[[-80,8],[-77,8.5],[-72,12],[-64,10.5],[-60,8.5],[-52,5],[-50,1],[-44,-2.5],[-35,-5],[-35,-9],[-39,-14],[-39.5,-18],[-41,-22],[-45,-23.5],[-48.5,-26],[-50,-30],[-53,-34],[-58,-34.5],[-57,-38],[-62,-39],[-65,-42],[-64,-45],[-67,-46],[-66,-48],[-69,-51],[-68,-54],[-70,-55],[-74,-52],[-75,-48],[-73,-42],[-73.5,-37],[-71.5,-30],[-70.5,-23],[-70,-18],[-76,-14],[-79,-8],[-81,-5],[-80,-2],[-80,1],[-77.5,4],[-77.5,7]],
+[[-17,21],[-16,28],[-10,30],[-9,32],[-6,35.8],[-2,35.2],[3,36.8],[10,37.2],[11,35],[10.5,34],[15,32.3],[19,30.5],[20,32],[23,32.5],[29,31],[32,31.2],[34,29],[35,24],[37,21],[39,16],[43,12.5],[45,11],[51,11.8],[51,10],[48,5],[42,-1],[40,-5],[39,-8],[40.5,-11],[40,-15],[35,-20],[35.5,-24],[33,-26],[32.5,-29],[28,-33],[23,-34],[20,-34.8],[18.3,-34],[18,-31],[16.5,-28.5],[15,-26],[14.5,-22],[12,-17],[13.5,-11],[12.5,-5],[9.5,-1],[9.5,3],[8.5,4.5],[5,6],[1,6],[-2,5],[-7.5,4.4],[-11,7],[-13,9],[-15,11],[-17,14.7],[-16,18]],
+[[44,-25],[47,-25],[50,-15],[49.5,-12],[47,-14],[44,-17],[43.5,-22]],
+[[-9,37],[-9,43],[-2,43.5],[-1.5,46],[-4.5,48],[-1,49.5],[2,51],[4,51.5],[5,53],[8,54],[8.5,57],[10.5,57.5],[10,55],[12,54.5],[14,54],[19,54.5],[21,57],[24,57.5],[23.5,59.5],[30,60],[22,60.5],[21,62],[25,65],[22,66],[17,62],[18.5,60],[16,56],[13,55.5],[11,58.5],[8,58],[5,59],[5,62],[10,64],[14,67],[18,69.5],[25,71],[30,70],[33,69],[40,67],[44,68],[53,68.5],[60,69],[68,72],[72,72.5],[80,73],[88,75.5],[100,77.5],[105,77],[113,74],[128,72],[140,72.5],[150,71],[160,69.5],[170,70],[180,69],[180,65],[177,64.5],[178,62],[172,60.5],[163,59.5],[163,57],[160,53],[156,51],[156,57],[160,61.5],[155,59.3],[148,59.3],[142,59],[135,54.5],[141,53],[140,48],[135,43.5],[130,42.5],[129,40],[129.5,35.5],[126.5,34.5],[126,37],[125,39.5],[121.5,39],[122,40.5],[119,39],[117.5,38.5],[119,37],[122.5,37],[120,34],[121.8,31],[122,29],[119,25],[116,22.8],[111,21.5],[110,20.3],[108,21.6],[106,20],[106,18],[109,13],[109,11.5],[105,8.6],[104.5,10.5],[103,11],[100.5,13.5],[100,12],[99,10],[100.5,7],[103.5,4],[104,1.3],[101,2.8],[98.5,8],[98.5,12],[97.5,16.5],[94.5,16],[94,19],[92,21],[90,22],[87,21.5],[86,20],[84,18],[80.3,15.5],[80,10],[77.5,8],[76.5,9],[74,14],[73,19],[72.5,21.5],[70,21],[68.5,23.5],[66.5,25.4],[61.5,25.2],[57.5,25.7],[56.5,27.2],[54,26.7],[51.5,27.9],[50,30],[48,30],[48.5,28.5],[50.5,26],[51.5,24],[54,24.2],[56,26],[56.5,24],[58.5,23.5],[59.8,22.5],[57.7,19],[55,17],[52,16],[48,14],[45,13],[43.3,12.7],[42.6,15.5],[40,20],[38.5,23],[36.5,26],[35,28],[34.5,29.5],[34,31],[35,33],[36,35.5],[35.8,36.8],[32,36.2],[29,36.7],[27,37.5],[26.5,39.5],[26,40.6],[29,41],[31,41.2],[35,42],[38,41],[41.5,41.5],[39,44.5],[37.5,45.5],[35,45],[33.5,44.5],[32.5,45.5],[30.5,46.5],[29.5,45],[28.5,43.5],[28,41.8],[26,40.8],[24,40.5],[22.5,40],[24,38],[22,36.5],[21,38],[19.5,40],[19.5,42],[16,43.5],[13.7,45.6],[12.4,45.4],[13.5,43.6],[16,41.5],[18.5,40.2],[16.5,38.5],[15.6,38],[15.6,40],[12,41.9],[10.5,43],[8.8,44.4],[6.5,43.1],[4,43.5],[3.2,42],[0.8,41],[-0.4,39.3],[0,38.7],[-2,36.8],[-5.5,36],[-7,37.2]],
+[[-5.5,50],[1.5,51],[1.7,52.7],[0,53.5],[-1.5,55],[-2,57],[-3.5,58.6],[-5,58.6],[-6,57],[-5,55],[-3,54.5],[-4.5,53.3],[-4.8,52]],
+[[-6,52],[-6,54.5],[-7.5,55.3],[-10,54],[-10,51.6]],
+[[-24,65.5],[-22,66.4],[-15,66.5],[-13.5,65],[-18,63.4],[-22,63.8]],
+[[130,31],[131.5,31.5],[132,34],[135,33.5],[137,34.5],[140,35],[141,38],[142,40],[141.5,41.5],[140,40.5],[139.5,38],[137,37],[136,36],[133,35.5],[130.8,34]],
+[[140,42],[141,45.5],[143,44],[145.5,43.3],[143,42],[141,41.5]],
+[[142,46],[143.5,49],[143,54],[142.5,54.2],[142,51]],
+[[80,6],[82,7.5],[80.2,9.8],[79.7,8]],
+[[95.3,5.5],[98,4],[104,-1.5],[106,-5.8],[102,-4],[99,0],[96,3]],
+[[109,1.5],[111,2.5],[114,4.5],[117,7],[119,5],[117.5,1],[116,-3.5],[114,-3.8],[110.5,-3],[109,0]],
+[[105.5,-6.8],[108,-6.5],[112.5,-6.8],[114.5,-7.7],[110,-8.2],[106,-7.5]],
+[[119,-5.5],[120.5,-5.5],[121,-1],[125,1.5],[120,0.5],[119,-3]],
+[[131,-1],[135,-3.5],[138,-1.6],[145,-4],[147.5,-6],[150,-10.5],[146,-8.5],[143,-9],[141,-9],[138,-8],[137.5,-5],[133,-4],[132,-2.5]],
+[[120,18.5],[122.5,18.4],[124,12.5],[126.5,7],[125.5,6],[122,7],[123,10.5],[120,14.5]],
+[[114,-22],[114,-26],[115,-34],[118,-35],[123,-34],[126,-32.2],[131,-31.5],[134,-32.5],[136,-35],[138,-34.7],[140,-38],[144,-38.5],[146.5,-39],[150,-37.5],[153,-31],[153.5,-25],[150.5,-22],[146,-19],[145.5,-15],[142.5,-10.7],[141.5,-13],[141.5,-17],[140,-17.5],[136.5,-15.5],[137,-12],[132.5,-11.3],[129.5,-15],[126,-14],[122,-17.5],[120,-20],[116,-21]],
+[[145,-41],[148.3,-41],[148,-43.2],[146,-43.5]],
+[[172.7,-34.5],[178.5,-37.6],[177,-39.5],[175,-41.5],[173.8,-39.2],[174.5,-37]],
+[[172.7,-40.5],[174.3,-41.8],[171,-44.5],[169,-46.6],[166.5,-46],[168,-44],[172,-41]],
+[[-85,22],[-81,23.2],[-77,22],[-74.2,20.2],[-77.5,19.8],[-80,21.6]],
+[[-74.4,18.5],[-72.8,19.9],[-68.4,18.6],[-71,18]],
+[[-180,-90],[180,-90],[180,-70],[160,-70],[140,-66],[90,-66],[60,-67],[30,-69],[0,-70],[-30,-75],[-60,-73],[-58,-64],[-65,-68],[-75,-72],[-100,-73],[-140,-75],[-180,-77]]
+];
+</script>
+
+<script>
+/* ================= ENGINE ================= */
+// The site works in two modes:
+//  • built-in: the ~100 hand-made animals above (used when data/ files are missing, e.g. in a preview)
+//  • generated: data/*.json produced by build/build.mjs (hundreds to thousands of animals)
+let MODE = 'builtin';
+let byId = {}; A.forEach(a=>byId[a.id]=a);
+let CREDITS = null;
+const norm = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9 ]/g,'').replace(/\s+/g,' ').trim();
+
+// tree paths (root → parent of the animal)
+let PATH = {};
+function buildBuiltinPaths(){
+  (function walk(node, path){
+    if (typeof node === 'string'){ PATH[node] = path; return; }
+    const [name, age, kids] = node; const p = path.concat([{name, age}]);
+    kids.forEach(k => walk(k, p));
+  })(TREE, []);
+}
+buildBuiltinPaths();
+function lca(a,b){
+  const pa=PATH[a], pb=PATH[b]; if(!pa||!pb) return null; let i=0;
+  while(i<pa.length && i<pb.length && pa[i]===pb[i]) i++;
+  return pa[i-1];
+}
+function fmtMya(m){
+  if (m===0) return 'same species';
+  if (m<1) return Math.max(1,Math.round(m*1000)).toLocaleString()+',000 yrs';
+  if (m<10) return (+m.toFixed(1))+' million yrs';
+  return Math.round(m)+' million yrs';
+}
+function temp(m){ if(m===0) return '🟩'; if(m<=12) return '🔥'; if(m<=60) return '🌶️'; if(m<=110) return '🌡️'; if(m<=330) return '🌤️'; return '🧊'; }
+function tempColor(m){ if(m===0) return '#3d9a5f'; if(m<=12) return '#e0533c'; if(m<=60) return '#e8843a'; if(m<=110) return '#e5b443'; if(m<=330) return '#8fb3c9'; return '#b7c9d6'; }
+// Kinship can run with dates (TimeTree) or tree-only (no dates): KIN_DATED decides.
+let KIN_DATED = true;
+function kin(id){
+  if(id===S.target) return {name:'Same animal',score:1,match:true,label:'Match!',apart:''};
+  const c=lca(id,S.target); if(!c) return null;
+  if(KIN_DATED) return {node:c,name:c.name,score:closeness(c.age),label:fmtMya(c.age),apart:fmtMya(c.age)+' apart'};
+  const path=PATH[S.target], depth=path.indexOf(c)+1;
+  const score=Math.max(0.03, depth/(path.length+1));
+  return {node:c,name:c.name,score,label:Math.round(score*100)+'% close',apart:'share '+c.name.replace(/^a branch within /,'')};
+}
+function kinTemp(k){ if(k.match) return '🟩'; if(KIN_DATED) return temp(k.node.age); const s=k.score; return s>=.85?'🔥':s>=.7?'🌶️':s>=.5?'🌡️':s>=.3?'🌤️':'🧊'; }
+function kinColor(k){ if(k.match) return '#3d9a5f'; if(KIN_DATED) return tempColor(k.node.age); const s=k.score; return s>=.85?'#e0533c':s>=.7?'#e8843a':s>=.5?'#e5b443':s>=.3?'#8fb3c9':'#b7c9d6'; }
+function closeness(m){ const lo=Math.log(0.02), hi=Math.log(800); return m===0?1:Math.max(0.03,Math.min(1,(hi-Math.log(m))/(hi-lo))); }
+
+function fmtKg(kg){ if(kg<0.001) return +(kg*1e6).toPrecision(2)+' mg'; if(kg<1) return +(kg*1000).toPrecision(3)+' g'; if(kg>=1000) return (kg/1000).toLocaleString(undefined,{maximumFractionDigits:1})+' t'; return (+kg.toPrecision(3)).toLocaleString()+' kg'; }
+function fmtDays(d){ if(d>=730) return +(d/365).toFixed(1)+' yrs'; if(d>=60) return Math.round(d/30.4)+' months'; return Math.round(d)+' days'; }
+let VITALS = {
+  stats:[
+    {k:'hr',label:'Heart rate',fmt:v=>v.toLocaleString()+' bpm'},
+    {k:'life',label:'Lifespan',fmt:v=>v+' yrs'},
+    {k:'spd',label:'Top speed',fmt:v=>v+' km/h'},
+    {k:'kg',label:'Weight',fmt:fmtKg},
+  ],
+  // clue cards: [label, getter]; the first two are shown from the start
+  clues:[['Group',T=>T.g],['Heart rate',T=>T.hr.toLocaleString()+' bpm'],['Lifespan',T=>T.life+' yrs'],['Top speed',T=>T.spd+' km/h'],['Weight',T=>fmtKg(T.kg)],['Diet',T=>T.diet],['Habitat',T=>T.hab]],
+  blurb:'Guess the animal from its body stats: heart rate, lifespan, speed and weight.',
+};
+let HAB_CLUES = [['Habitat',T=>T.hab],['Diet',T=>T.diet],['Group',T=>T.g],['Weight',T=>T.kg!==undefined?fmtKg(T.kg):'—'],['Starts with',T=>T.n[0]]];
+
+// rng
+function hash(s){let h=2166136261;for(const c of s){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function shuffled(arr, seed){const r=rng(seed), a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const now = new Date();
+const DAY = Math.floor((Date.UTC(now.getFullYear(),now.getMonth(),now.getDate()) - Date.UTC(2026,10,21))/864e5);
+const DAYKEY = now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate();
+function dailyPick(game, pool){ const s=shuffled(pool, hash('clade-'+MODE+'-'+game)); return s[((DAY%s.length)+s.length)%s.length]; }
+
+function load(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+
+function toast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove('on'),1800)}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+const em = a => a.e || (a.img ? `<img class="mini" data-sil="${a.id}" alt="">` : '🐾');
+// Silhouettes are bundled into data/sil-N.json and loaded only when an image needs them.
+const SIL_CHUNKS = {};
+function silChunk(c){ return SIL_CHUNKS[c] ||= fetch('data/sil-'+c+'.json').then(r=>r.ok?r.json():{}).catch(()=>({})); }
+function hydrateSilhouettes(root=document){
+  root.querySelectorAll('img[data-sil]:not([src])').forEach(async img=>{
+    const a=byId[img.dataset.sil]; if(!a||!a.img) return;
+    const svg=(await silChunk(a.img.c))[a.id]; if(svg) img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+  });
+}
+new MutationObserver(()=>hydrateSilhouettes()).observe(document.getElementById('app'),{childList:true,subtree:true});
+
+/* ================= MAP ================= */
+function pip(x,y,poly){let c=false;for(let i=0,j=poly.length-1;i<poly.length;j=i++){const [xi,yi]=poly[i],[xj,yj]=poly[j];if(((yi>y)!=(yj>y))&&(x<(xj-xi)*(y-yi)/(yj-yi)+xi))c=!c}return c}
+// Grid must match build/lib/util.mjs (GRID)
+const STEP=3, LAT_TOP=81, LAT_BOT=-78;
+const DOTS=[];
+for(let lat=LAT_TOP;lat>=LAT_BOT;lat-=STEP){for(let lon=-178.5;lon<180;lon+=STEP){DOTS.push({lon,lat,land:LAND.some(p=>pip(lon,lat,p))})}}
+function inRange(a,d){
+  const r=a.r; if(!r) return false;
+  if(r==='ALL') return d.land && d.lat<72 && d.lat>-56;
+  if(r==='SEA') return !d.land && d.lat<70 && d.lat>-68;
+  if(!d.land && !a.m) return false;
+  return r.some(([cx,cy,rx,ry])=>((d.lon-cx)/rx)**2+((d.lat-cy)/ry)**2<=1);
+}
+const RANGE_CACHE={};
+function rangeSet(a){
+  if(!RANGE_CACHE[a.id]){
+    const s = a.cells ? new Set(a.cells) : new Set();
+    if(!a.cells) DOTS.forEach((d,i)=>{if(inRange(a,d))s.add(i)});
+    RANGE_CACHE[a.id]=s;
+  }
+  return RANGE_CACHE[a.id];
+}
+const hasRange = a => !!(a.r || a.cells);
+function overlap(a,b){ const A1=rangeSet(a),B1=rangeSet(b); if(!A1.size||!B1.size) return 0; let n=0; A1.forEach(i=>{if(B1.has(i))n++}); return n/(A1.size+B1.size-n); }
+const X=lon=>lon+180, Y=lat=>LAT_TOP+2-lat;
+function smallMarkers(a, color, dashed){
+  let s='';
+  if(Array.isArray(a.r)) a.r.forEach(([cx,cy,rx,ry])=>{ if(rx<5&&ry<5) s+=ring(cx,cy,Math.max(rx,ry)+3,color,dashed); });
+  else if(a.cells && a.cells.length<=3) a.cells.forEach(i=>{ const d=DOTS[i]; if(d) s+=ring(d.lon,d.lat,4,color,dashed); });
+  return s;
+}
+const ring=(lon,lat,r,c,dashed)=>`<circle cx="${X(lon)}" cy="${Y(lat)}" r="${r}" fill="none" stroke="${c}" stroke-width="1.2" ${dashed?'stroke-dasharray="2 1.5"':''}/>`;
+function mapSVG(target, others){
+  const W=360,H=LAT_TOP-LAT_BOT+4;
+  const tset=rangeSet(target);
+  const oset=new Set(); others.forEach(o=>rangeSet(o).forEach(i=>oset.add(i)));
+  let s=`<svg class="map" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+  DOTS.forEach((d,i)=>{
+    const t=tset.has(i), o=oset.has(i);
+    if(!d.land && !t && !o) return;
+    let fill = d.land ? '#b9c7bd' : 'none', r=0.95;
+    if(o){ fill='#e8843a'; r=1.15; }
+    if(t){ fill = o ? '#7a5bb5' : '#1f7a57'; r=1.25; }
+    s+=`<circle cx="${X(d.lon)}" cy="${Y(d.lat)}" r="${r}" fill="${fill}"/>`;
+  });
+  s+=smallMarkers(target,'#1f7a57',false);
+  others.forEach(o=>{ s+=smallMarkers(o,'#e8843a',true); });
+  return s+'</svg>';
+}
+
+/* ================= CLADE UNLIMITED =================
+   Same system as LEXICON and Meridian, sold separately:
+   1. Each browser has a random player ID.
+   2. "Unlock" opens Gumroad with that ID attached; Gumroad pings the Supabase webhook,
+      which records the purchase under product 'clade_unlimited'.
+   3. The page asks unlock-status and switches itself on. Restore on a new device uses the purchase email.
+   Daily puzzles are free and always Normal; Unlimited = endless practice + difficulty + no ads. */
+const CLADE = {
+  PREMIUM: { price:'$5', product:'clade_unlimited', productUrl:'https://robventure5.gumroad.com/l/tpyyq',
+             giftUrl:'https://robventure5.gumroad.com/l/undrjt', server:'https://rqysnsdhtwsepevpbccy.supabase.co/functions/v1' },
+  playerId(){ let id=load('clade:player_id'); if(!id){ id=(crypto.randomUUID?crypto.randomUUID():'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const r=Math.random()*16|0;return(c==='x'?r:(r&3|8)).toString(16)})); save('clade:player_id',id);} return id; },
+  isUnlocked(){ return load('clade:unlimited')===true; },
+  async api(path, body){ const r=await fetch(CLADE.PREMIUM.server+'/'+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,product:CLADE.PREMIUM.product})}); if(!r.ok) throw new Error('Server '+r.status); return r.json(); },
+  grantUnlock(msg){ save('clade:unlimited',true); try{(window.adsbygoogle=window.adsbygoogle||[]).pauseAdRequests=1;}catch(e){} toast(msg||'Clade Unlimited unlocked. Thank you!'); window.Kit&&Kit.confetti(); document.querySelectorAll('.kit-adbar').forEach(e=>e.remove()); setTimeout(route,300); },
+  async checkUnlock(){ if(CLADE.isUnlocked()||!load('clade:player_id')) return false; try{ const d=await CLADE.api('unlock-status',{player_id:CLADE.playerId()}); if(d&&d.unlocked){ CLADE.grantUnlock(); return true; } }catch(e){} return false; },
+  checkoutUrl(){ const u=CLADE.PREMIUM.productUrl; return u+(u.includes('?')?'&':'?')+'wanted=true&player_id='+encodeURIComponent(CLADE.playerId()); },
+  pollUnlock(){ let n=0; clearInterval(CLADE._poll); CLADE._poll=setInterval(async()=>{ if(++n>60||await CLADE.checkUnlock()) clearInterval(CLADE._poll); },5000); },
+  async restore(email){ try{ const d=await CLADE.api('restore',{email,player_id:CLADE.playerId()}); if(d&&d.unlocked){ CLADE.grantUnlock('Clade Unlimited restored on this device'); return true; } }catch(e){} return false; },
+};
+addEventListener('focus', ()=>CLADE.checkUnlock());
+
+/* ================= LOOK ================= */
+// Hand-drawn style icons for each game (stroke = currentColor).
+const ICONS = {
+  kinship:`<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 27H28M8 27V19H20M14 19V11H26M20 11V5"/><circle cx="20" cy="5" r="1.8" fill="currentColor"/><circle cx="26" cy="11" r="1.8" fill="currentColor"/><circle cx="20" cy="19" r="1.8" fill="currentColor"/><circle cx="28" cy="27" r="1.8" fill="currentColor"/></svg>`,
+  silhouette:`<svg viewBox="0 0 32 32" fill="currentColor"><path d="M5 22c2-5 5-7 9-7l3-4 2 1-1 3c3 0 6 1 8 4l1-3h2l-1 6v5h-3l-1-3H12l-2 3H7l1-4z"/><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="2 3"/></svg>`,
+  vitals:`<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17h7l2-5 4 11 3-14 3 8h9"/></svg>`,
+  habitat:`<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="12"/><path d="M16 6l3 10-3 10-3-10z" fill="currentColor" fill-opacity=".25"/><path d="M16 2v3M16 27v3M2 16h3M27 16h3"/></svg>`,
+};
+// Field-journal "Latin" labels for the specimen cards.
+const LATIN = { kinship:'Arbor vitae', silhouette:'Umbra animalis', vitals:'Signa vitalia', habitat:'Terra cognita' };
+const LOGO = `<svg class="logo" viewBox="0 0 40 40" fill="none" stroke="var(--green)" stroke-width="2.4" stroke-linecap="round"><path d="M20 37V21M20 25c-5-1-9-5-10-11M20 21c4-2 8-6 9-12M14 18c-3 0-5-2-6-4M25 15c2 0 4-1 5-3"/><circle cx="10" cy="13" r="3" fill="var(--leaf)" stroke="none"/><circle cx="29" cy="8" r="3" fill="var(--leaf)" stroke="none"/><circle cx="8" cy="13.5" r="2" fill="var(--leaf)" stroke="none" opacity=".6"/><circle cx="31" cy="12" r="2.2" fill="var(--leaf)" stroke="none" opacity=".6"/><circle cx="20" cy="20" r="2.4" fill="var(--green)" stroke="none"/></svg>`;
+
+// A DNA double helix drawn as a divider.
+function helixSVG(){
+  let a='M0 11', b='M0 11', rungs='';
+  for(let x=0;x<=560;x+=4){ const y=11+8*Math.sin(x/14), y2=11-8*Math.sin(x/14); a+=` L${x} ${y.toFixed(1)}`; b+=` L${x} ${y2.toFixed(1)}`; if(x%14===0 && Math.abs(y-y2)>4) rungs+=`<line x1="${x}" y1="${y.toFixed(1)}" x2="${x}" y2="${y2.toFixed(1)}"/>`; }
+  return `<svg class="helix" viewBox="0 0 560 22" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke-width="1.6"><path d="${a}" stroke="var(--green)"/><path d="${b}" stroke="var(--kin)"/><g stroke="var(--muted)" stroke-width="1">${rungs}</g></g></svg>`;
+}
+
+// Puzzles solved on this device (all games, all days) → leaves on your tree.
+function solvedCount(){
+  let n=0;
+  try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(!/^clade:(builtin|generated):/.test(k)) continue; const v=JSON.parse(localStorage.getItem(k)); if(v&&v.done&&v.won) n++; } }catch(e){}
+  return n;
+}
+// Your personal tree of life: a branching tree that gains one leaf per solved puzzle.
+function growthTree(n){
+  const W=340,H=170, r=rng(20261121), tips=[], segs=[];
+  (function br(x,y,ang,len,w,d){
+    const x2=x+Math.cos(ang)*len, y2=y-Math.sin(ang)*len;
+    segs.push(`<path d="M${x.toFixed(1)} ${y.toFixed(1)} Q${((x+x2)/2+(r()-.5)*6).toFixed(1)} ${((y+y2)/2).toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}" stroke-width="${w.toFixed(1)}"/>`);
+    if(d>=5){ tips.push([x2,y2],[x2+(r()-.5)*10,y2+(r()-.5)*8]); return; }
+    if(d>=2) tips.push([x2,y2]);
+    const k = d>=2 && r()<.25 ? 3 : 2;
+    for(let i=0;i<k;i++){ const spread = .6+.25*r(); br(x2,y2, ang + (i-(k-1)/2)*spread + (r()-.5)*.25, len*(.72+.1*r()), Math.max(1.2,w*.66), d+1); }
+  })(W/2,H-6,Math.PI/2,38,8,0);
+  const order = shuffled(tips.map((t,i)=>i), 7).sort((a,b)=>tips[b][1]-tips[a][1] > 0 ? 1 : -1);
+  const shown = Math.min(n, tips.length);
+  const greens=['#4f8a5b','#6aa96f','#3d7a4b','#8bbf6a','#5a9e7e','#a8c66c'];
+  let leaves='';
+  for(let i=0;i<shown;i++){ const [x,y]=tips[order[i]]; const rot=(r()*360|0); const c=greens[i%greens.length];
+    leaves+=`<g transform="rotate(${rot} ${x.toFixed(1)} ${y.toFixed(1)})"><ellipse class="leafi" style="animation-delay:${Math.min(i,40)*25}ms" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="7" ry="3.8" fill="${c}"/></g>`; }
+  const buds = n ? '' : `<circle cx="${W/2}" cy="${H-50}" r="4" fill="var(--leaf)"/>`;
+  const note = n ? `Your tree of life<br><b>${n}</b> ${n===1?'leaf':'leaves'}` : `Your tree of life<br>solve a puzzle to grow a leaf`;
+  return `<div class="grove"><div class="note">${note}</div><svg viewBox="0 0 ${W} ${H}" aria-hidden="true"><g fill="none" stroke="var(--bark)" stroke-linecap="round">${segs.join('')}</g>${buds}${leaves}<path d="M20 ${H-4} Q${W/2} ${H-12} ${W-20} ${H-4}" stroke="var(--line)" stroke-width="2" fill="none"/></svg></div>`;
+}
+
+/* ================= GAMES ================= */
+const has = (a,...ks)=>ks.every(k=>a[k]!==undefined);
+
+// Kinship difficulty levels.
+function kinshipLevels(pool, everyone){
+  const inPool=new Set(pool.map(a=>a.id));
+  const hard=everyone.filter(a=>!inPool.has(a.id) && a.n!==a.sci).slice(0,900);
+  return {
+    easy:{ pool: pool.slice(0,120), startClue:true, note:'Easy: famous animals, and you start out knowing its group.' },
+    normal:{},
+    hard:{ pool: hard.length>=50 ? hard : everyone, max:20, noHints:true, note:'Hard: lesser-known animals, 20 guesses and no hints.' },
+  };
+}
+let GAMES = {};
+function builtinGames(){
+  return {
+    kinship:{ title:'Kinship', icon:'🧬', color:'var(--kin)', max: Infinity,
+      blurb:'Find the mystery animal. Each guess shows how long ago it shared an ancestor with the answer.',
+      guessable: A.filter(a=>PATH[a.id]),
+      pool: A.filter(a=>PATH[a.id] && a.e && !['jellyfish','coral','polarbear','mammoth','dodo','trex','brachiosaurus'].includes(a.id)) },
+    silhouette:{ title:'Silhouette', icon:'👤', color:'var(--sil)', max: 6,
+      blurb:'A blurry, zoomed-in shadow. Every wrong guess pulls back and sharpens it.',
+      guessable: A.filter(a=>a.e),
+      pool: A.filter(a=>a.e && !['jellyfish','coral','polarbear','human'].includes(a.id)) },
+    vitals:{ title:'Vital Signs', icon:'❤️', color:'var(--vit)', max: 6, blurb: VITALS.blurb,
+      guessable: A.filter(a=>has(a,'kg','life','hr','spd')),
+      pool: A.filter(a=>has(a,'kg','life','hr','spd')) },
+    habitat:{ title:'Habitat', icon:'🗺️', color:'var(--hab)', max: 6,
+      blurb:'Guess the animal from where it lives. Your guesses show up on the map so you can compare.',
+      guessable: A.filter(hasRange),
+      pool: A.filter(a=>a.r && a.r!=='ALL') },
+  };
+}
+GAMES = builtinGames();
+GAMES.kinship.levels = kinshipLevels(GAMES.kinship.pool, GAMES.kinship.guessable);
+
+/* ---------- generated data ---------- */
+async function loadGenerated(){
+  const get = f => fetch('data/'+f,{cache:'no-cache'}).then(r=>r.ok?r.json():null).catch(()=>null);
+  const animals = await get('animals.json');
+  if(!Array.isArray(animals) || !animals.length) return false;
+  const [kin, vit, hab, sil] = await Promise.all(['kinship.json','vitals.json','habitat.json','silhouette.json'].map(get));
+  MODE='generated';
+  A = animals; byId = {}; A.forEach(a=>byId[a.id]=a);
+  const ids = list => (list||[]).map(id=>byId[id]).filter(Boolean);
+  const G = {};
+
+  if(kin){
+    PATH = {};
+    const nodes = kin.nodes.map(([name,age,p,est])=>({name,age,p,est}));
+    KIN_DATED = nodes.some(n=>n.age!=null);
+    const chain = []; // chain[i] = path array for node i (root → i)
+    nodes.forEach((n,i)=>{ chain[i] = n.p<0 ? [n] : chain[n.p].concat([n]); });  // parents come before children
+    for(const [id,p] of Object.entries(kin.leaves)) if(byId[id]) PATH[id] = chain[p];
+    G.kinship = { title:'Kinship', icon:'🧬', color:'var(--kin)', max: Infinity,
+      blurb: KIN_DATED ? 'Find the mystery animal. Each guess shows how long ago it shared an ancestor with the answer.'
+                       : 'Find the mystery animal on the tree of life. Each guess shows the closest group it shares with the answer.',
+      guessable: A.filter(a=>PATH[a.id]), pool: ids(kin.answers) };
+    G.kinship.levels = kinshipLevels(G.kinship.pool, G.kinship.guessable);
+  } else PATH = {};
+
+  if(sil){
+    for(const [id,v] of Object.entries(sil.img)) if(byId[id]) byId[id].img = v;
+    G.silhouette = { title:'Silhouette', icon:'👤', color:'var(--sil)', max: 6,
+      blurb:'A blurry, zoomed-in silhouette. Every wrong guess pulls back and sharpens it.',
+      guessable: A, pool: ids(sil.answers) };
+  }
+
+  if(vit){
+    for(const [id,v] of Object.entries(vit.stats)) if(byId[id]) Object.assign(byId[id], v);
+    VITALS = {
+      stats:[
+        {k:'kg',label:'Weight',fmt:fmtKg},
+        {k:'life',label:'Max lifespan',fmt:v=>v+' yrs'},
+        {k:'gest',label:'Pregnancy / egg',fmt:fmtDays},
+        {k:'brood',label:'Babies / eggs',fmt:v=>String(v)},
+      ],
+      clues:[['Group',T=>T.g],['Max lifespan',T=>T.life+' yrs'],['Weight',T=>fmtKg(T.kg)],['Pregnancy / incubation',T=>T.gest?fmtDays(T.gest):'unknown'],['Babies / eggs per litter',T=>T.brood??'unknown'],['Order',T=>T.ord||'—'],['Family',T=>T.fam||'—']],
+      blurb:'Guess the animal from its life stats: weight, lifespan, pregnancy length and litter size.',
+    };
+    G.vitals = { title:'Vital Signs', icon:'❤️', color:'var(--vit)', max: 6, blurb: VITALS.blurb,
+      guessable: A.filter(a=>a.life!==undefined && a.kg!==undefined), pool: ids(vit.answers) };
+  }
+
+  if(hab){
+    const dec = str => { const out=[]; if(!str) return out; for(const part of str.split(',')){ const [a,b]=part.split('.'); const st=parseInt(a,36), n=b?parseInt(b,36):1; for(let i=0;i<n;i++) out.push(st+i); } return out; };
+    for(const [id,c] of Object.entries(hab.cells)) if(byId[id]) byId[id].cells = hab.enc==='runs36' ? dec(c) : c;
+    HAB_CLUES = [['Group',T=>T.g],['Order',T=>T.ord||'—'],['Genus',T=>T.sci.split(' ')[0]],['Letters',T=>T.n.replace(/[^A-Za-z]/g,'').length],['Starts with',T=>T.n[0]]];
+    G.habitat = { title:'Habitat', icon:'🗺️', color:'var(--hab)', max: 6,
+      blurb:'Guess the animal from where it has been recorded. Your guesses show up on the map so you can compare.',
+      guessable: A.filter(a=>a.cells), pool: ids(hab.answers) };
+  }
+  for(const k of Object.keys(G)) if(!G[k].pool.length) delete G[k];
+  if(!Object.keys(G).length){ MODE='builtin'; return false; }
+  GAMES = G;
+  return true;
+}
+
+let S = null; // current session {game, mode, level, target, guesses[], hints, done, won, key}
+
+// Difficulty: a game opts in with G.levels = {easy:{pool,max,...}, normal:{...}, hard:{...}}.
+const LEVELS = ['easy','normal','hard'];
+function levelOf(game){ const G=GAMES[game]; if(!G||!G.levels) return 'normal'; const l=load('clade:level:'+game); return LEVELS.includes(l)&&G.levels[l] ? l : 'normal'; }
+function cfg(game, level){ const G=GAMES[game]; return Object.assign({pool:G.pool, max:G.max}, G.levels ? G.levels[level] : {}); }
+function dayKey(game, level){ return 'clade:'+MODE+':'+game+(level&&level!=='normal'?':'+level:'')+':'+DAYKEY; }
+
+function startGame(game, mode, level, spec){
+  level = mode==='daily' ? 'normal' : (level || levelOf(game));
+  const C=cfg(game, level), G=GAMES[game];
+  if(G.setup){
+    // Puzzle built from a seed: the same for everyone on a day, random in practice.
+    const key = mode==='daily' ? dayKey(game, level) : null, st = key ? load(key) : null;
+    const seed = spec && spec.s!=null ? spec.s>>>0 : mode==='daily' ? hash('clade-'+MODE+'-'+game+'-'+DAY) : (Math.random()*4294967296)>>>0;
+    S={game,mode,level,max:C.max,seed,guesses:(st&&st.guesses)||[],hints:0,done:!!(st&&st.done),won:!!(st&&st.won),key,cur:st&&st.cur};
+    S.puzzle = G.setup(seed, C, level);
+    S.target = S.puzzle.target || null;
+    S.view = S.guesses.length; S.challenge = spec||null;
+    renderGame(); return;
+  }
+  if(mode==='daily'){
+    const key=dayKey(game, level);
+    const target=dailyPick(game+(level==='normal'?'':'-'+level), C.pool);
+    const st=load(key);
+    S={game,mode,level,max:C.max,target:target.id,guesses:((st&&st.guesses)||[]).filter(id=>byId[id]),hints:(st&&st.hints)||0,done:!!(st&&st.done),won:!!(st&&st.won),key,gaveUp:!!(st&&st.gaveUp)};
+  } else {
+    const pool=C.pool.filter(a=>!S||a.id!==S.target);
+    const t=(spec && byId[spec.t]) || pool[Math.floor(Math.random()*pool.length)];
+    S={game,mode,level,max:C.max,target:t.id,guesses:[],hints:0,done:false,won:false,key:null,challenge:spec||null};
+  }
+  renderGame();
+}
+function persist(){ if(S.key) save(S.key,{guesses:S.guesses,hints:S.hints,done:S.done,won:S.won,gaveUp:S.gaveUp,cur:S.cur}); }
+// The number a finished game reports (guesses used, or misses + 1 for round games with lives).
+function scoreN(){ const G=GAMES[S.game]; return G.scoreN ? G.scoreN(S) : S.guesses.length; }
+
+function submitGuess(id){
+  const G=GAMES[S.game];
+  if(S.done) return;
+  if(S.guesses.includes(id)){ setMsg('Already guessed that one.'); return; }
+  S.guesses.push(id);
+  dispatchEvent(new CustomEvent('clade:guess',{detail:{game:S.game,right:id===S.target}}));
+  if(id===S.target){ S.done=true; S.won=true; }
+  else if(S.guesses.length>=(S.max??G.max)){ S.done=true; S.won=false; }
+  persist(); renderGame(true);
+}
+function setMsg(t){ const m=document.getElementById('msg'); if(m) m.textContent=t; }
+
+/* ---------- rendering ---------- */
+const app=document.getElementById('app');
+
+function renderHome(){
+  document.body.dataset.game='';
+  const card=([k,G],i)=>{
+    const st=LEVELS.map(l=>load(dayKey(k,l))).find(x=>x&&x.done);
+    const stat = st ? `<span class="gstat ${st.won?'done':''}">${st.won?'✓ Solved':'Done'}</span>` : `<span class="gstat">Play</span>`;
+    return `<button class="gcard" data-go="${k}" style="--c:${G.color}"><span class="pin"></span><div class="gicon">${ICONS[k]||G.icon}</div><div><div class="latin">No. ${String(i+1).padStart(3,'0')} · ${LATIN[k]||''}</div><h3>${G.title}</h3><p>${G.blurb}</p></div>${stat}</button>`;
+  };
+  const all=Object.entries(GAMES), animals=all.filter(([k,G])=>G.shelf!=='plants'), plants=all.filter(([k,G])=>G.shelf==='plants');
+  const cards=animals.map(card).join(''), pcards=plants.map((x,i)=>card(x,animals.length+i)).join('');
+  const count = MODE==='generated' ? `${A.length.toLocaleString()} animals · ` : '';
+  app.innerHTML=`
+    <div class="brand">${LOGO}<h1>Clade</h1></div>
+    <p class="tag">a field journal of daily biology puzzles · ${count}#${DAY+1}</p>
+    ${helixSVG()}
+    ${growthTree(solvedCount())}
+    <div class="shelf"><h2>Animals</h2><span>the animal kingdom</span></div>
+    <div class="grid">${cards}</div>
+    ${pcards?`<div class="shelf"><h2>Plants</h2><span>the green kingdom</span></div><div class="grid">${pcards}</div>`:''}
+    <p class="foot">A new puzzle in each game every day at midnight, plus unlimited practice rounds. ${MODE==='generated'?'Data comes from open scientific databases and is approximate.':'Divergence times and animal stats are rounded estimates, so treat them as ballpark figures. Emoji drawings vary by device.'}
+    <br><a href="#credits" style="color:inherit">Credits &amp; data sources</a></p>`;
+  app.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{location.hash=b.dataset.go});
+}
+
+async function renderCredits(){
+  if(MODE==='generated' && !CREDITS){
+    app.innerHTML='<p class="intro">Loading credits…</p>';
+    CREDITS = await fetch('data/credits.json').then(r=>r.ok?r.json():null).catch(()=>null);
+  }
+  const c=CREDITS;
+  let body;
+  if(MODE!=='generated' || !c){
+    body=`<p class="intro">This version uses a small hand-made set of animals. Divergence times are rounded estimates in the style of TimeTree.org; stats and ranges are approximate.</p>`;
+  } else {
+    body=`<div class="panel"><h3 style="font-size:18px;margin-bottom:8px">Data sources</h3>${c.sources.map(s=>`<p style="margin:0 0 10px;font-size:14px;line-height:1.45"><a href="${esc(s.url)}">${esc(s.name)}</a><br><span class="sub">${esc(s.use)} · ${esc(s.license)}</span></p>`).join('')}
+      <p class="sub">Habitat maps use records from ${c.gbifDatasets} GBIF datasets. Data built ${esc(c.built)}.</p></div>
+      <div class="panel"><h3 style="font-size:18px;margin-bottom:8px">Silhouettes (PhyloPic)</h3>
+      ${c.silhouettes.map(s=>`<div class="sub" style="margin-bottom:4px">${esc(s.n||'')}: <a href="${esc(s.url)}">${esc(s.by)}</a>, ${esc(s.lic)}</div>`).join('')}</div>`;
+  }
+  app.innerHTML=`<div class="top"><button class="back" id="back" aria-label="Back">←</button><div><h2>Credits</h2></div></div>${body}`;
+  document.getElementById('back').onclick=()=>{location.hash='home'};
+}
+
+function renderGame(fresh){
+  const G=GAMES[S.game], T=byId[S.target];
+  document.documentElement.style.setProperty('--accent', G.color);
+  document.body.dataset.game=S.game;
+  const max=S.max??G.max;
+  const left = max===Infinity ? '' : `<div class="left">${Math.max(0,max-S.guesses.length)} of ${max} guesses left</div>`;
+  const lv = G.levels && S.mode==='practice' && !S.challenge ? `<div class="levels"><span class="hand">difficulty</span>${LEVELS.filter(l=>G.levels[l]).map(l=>`<button data-l="${l}" class="${S.level===l?'on':''}">${l[0].toUpperCase()+l.slice(1)}</button>`).join('')}</div>` : '';
+  app.innerHTML=`
+    <div class="top">
+      <button class="back" id="back" aria-label="Back">←</button>
+      <div><h2>${G.title}</h2><div class="num">${S.challenge?'Challenge from '+esc(S.challenge.nm||'a friend')+(G.levels?' · '+S.level[0].toUpperCase()+S.level.slice(1):''):S.mode==='daily'?'Daily #'+(DAY+1):'Unlimited practice'+(G.levels?' · '+S.level[0].toUpperCase()+S.level.slice(1):'')}</div></div>
+      <div class="modes"><button data-m="daily" class="${S.mode==='daily'?'on':''}">Daily</button><button data-m="practice" class="${S.mode==='practice'?'on':''}">${CLADE.isUnlocked()?'∞':'🔒'} Practice</button></div>
+    </div>
+    ${lv}
+    <p class="intro">${(S.mode==='practice'&&G.levels&&G.levels[S.level]&&G.levels[S.level].note)||G.blurb}</p>
+    <div id="stage"></div>
+    <div id="result"></div>
+    <div id="inputArea" class="${S.done||G.noInput?'hidden':''}">
+      <div class="inrow"><input id="inp" placeholder="${G.shelf==='plants'?'Type a plant…':'Type an animal…'}" autocomplete="off" autocapitalize="off" spellcheck="false"><button class="go" id="go">Guess</button><div class="sugg hidden" id="sugg"></div></div>
+      <div class="msg" id="msg"></div>${left}
+    </div>
+    <div id="rows" class="rows"></div>`;
+  document.getElementById('back').onclick=()=>{location.hash='home'};
+  app.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{ location.hash = S.game + (b.dataset.m==='practice'?'-practice':''); });
+  app.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{ save('clade:level:'+S.game,b.dataset.l); startGame(S.game,S.mode,b.dataset.l); });
+  document.body.dataset.level = S.mode==='practice' ? S.level : 'normal';
+  RENDER[S.game](T,G);
+  if(S.done && !(G.rounded && S.view<S.guesses.length-1)) renderResult(T,G);
+  else if(!S.done && !G.noInput) wireInput(G);
+}
+
+function wireInput(G){
+  const inp=document.getElementById('inp'), sug=document.getElementById('sugg');
+  let sel=0, list=[];
+  if(!G._names) G._names = G.guessable.map(a=>({a,keys:[a.n,...(a.al||[]),...(a.sci?[a.sci]:[])].map(norm)}));
+  const names = G._names;
+  const hideIcons = G===GAMES.silhouette || G.hideIcons;
+  function update(){
+    const q=norm(inp.value); sel=0;
+    if(!q){ sug.classList.add('hidden'); list=[]; return; }
+    // Rank: exact name, name starts with, a word in the name starts with, then the same for other names.
+    const sc = x => { let best=9; x.keys.forEach((k,i)=>{ const alt=i?3:0;
+      if(k===q) best=Math.min(best,alt?1:0);
+      else if(k.split(' ').includes(q)) best=Math.min(best,1+alt);
+      else if(k.startsWith(q)) best=Math.min(best,1.5+alt);
+      else if(k.split(' ').some(w=>w.startsWith(q))) best=Math.min(best,2+alt);
+      else if(k.includes(q)) best=Math.min(best,6+alt/3); }); return best; };
+    list = names.map(x=>({x,s:sc(x)})).filter(o=>o.s<9 && !S.guesses.includes(o.x.a.id))
+      .sort((p,q2)=>p.s-q2.s||(q2.x.a.pop||0)-(p.x.a.pop||0)||p.x.a.n.localeCompare(q2.x.a.n)).slice(0,6).map(o=>o.x.a);
+    if(!list.length){ sug.classList.add('hidden'); return; }
+    sug.innerHTML=list.map((a,i)=>`<div data-i="${i}" class="${i===sel?'sel':''}"><span>${hideIcons?'':em(a)}</span>${esc(a.n)}${MODE==='generated'&&a.sci?` <span class="sub"><i>${esc(a.sci)}</i></span>`:''}</div>`).join('');
+    sug.classList.remove('hidden');
+    sug.querySelectorAll('[data-i]').forEach(d=>d.onmousedown=d.ontouchstart=e=>{e.preventDefault(); choose(list[+d.dataset.i]);});
+  }
+  function choose(a){ inp.value=''; sug.classList.add('hidden'); submitGuess(a.id); }
+  function submit(){
+    if(list.length){ choose(list[sel]); return; }
+    const q=norm(inp.value); if(!q) return;
+    const hit=names.find(x=>x.keys.includes(q));
+    if(hit && !S.guesses.includes(hit.a.id)) choose(hit.a); else setMsg(hit?'Already guessed that one.':(G.shelf==='plants'?'Not in this game\'s plant list. Try another name.':'Not in this game\'s animal list. Try another name.'));
+  }
+  inp.oninput=()=>{setMsg('');update()};
+  inp.onkeydown=e=>{
+    if(e.key==='ArrowDown'&&list.length){sel=(sel+1)%list.length;update2();e.preventDefault()}
+    else if(e.key==='ArrowUp'&&list.length){sel=(sel-1+list.length)%list.length;update2();e.preventDefault()}
+    else if(e.key==='Enter'){e.preventDefault();submit()}
+  };
+  function update2(){ sug.querySelectorAll('[data-i]').forEach((d,i)=>d.classList.toggle('sel',i===sel)); }
+  inp.onblur=()=>setTimeout(()=>sug.classList.add('hidden'),150);
+  document.getElementById('go').onclick=submit;
+  if(window.matchMedia('(hover:hover)').matches) inp.focus();
+}
+
+/* ---------- per-game renderers ---------- */
+const RENDER = {
+  kinship(T){
+    const C=cfg('kinship',S.level), path=PATH[S.target]||[];
+    const nodeScore = node => KIN_DATED ? closeness(node.age) : (path.indexOf(node)+1)/(path.length+1);
+    const rows=S.guesses.filter(id=>id!==S.target).map(id=>({id,a:byId[id],c:kin(id)})).filter(r=>r.c).sort((p,q)=>p.c.score-q.c.score);
+    const best=rows[rows.length-1];
+    // hint nodes: the next branches of the answer's lineage below the closest guess
+    const hints=[];
+    if(S.hints>0 && path.length){
+      const bestDepth = best && best.c.node ? path.indexOf(best.c.node) : 0;
+      for(let k=1;k<=S.hints;k++){ const hn=path[Math.min(path.length-1, Math.max(0,bestDepth)+k)]; if(hn && !hints.includes(hn)) hints.push(hn); }
+    }
+    // ---- cladogram: time runs left → right; the mystery animal's lineage is the bottom line ----
+    const W=340, L=12, R=W-8, rowH=42, top=22, n=rows.length, yT=top+Math.max(n,1)*rowH+14, H=yT+46;
+    const short = nm => nm.replace(/^a branch within /,'… ').replace(/\s*\([^)]*\)/g,'');
+    const xMin=L+16, xMax=R-150, X=sc=>xMin+Math.max(0,Math.min(1,sc))*(xMax-xMin);
+    const lastId=S.guesses[S.guesses.length-1];
+    let g='';
+    rows.forEach((r,i)=>{
+      const y=top+i*rowH, xj=X(r.c.score), col=kinColor(r.c), isNew = r.id===lastId && !S.done;
+      g+=`<path class="ink ${isNew?'new':''}" d="M${xj.toFixed(1)} ${yT} V${y} H${R-6}" stroke="${col}" stroke-width="2.4"/>`;
+      g+=`<circle cx="${xj.toFixed(1)}" cy="${yT}" r="3.6" fill="${col}"/><circle cx="${R-4}" cy="${y}" r="4" fill="var(--card)" stroke="${col}" stroke-width="2"/>`;
+      g+=`<text class="lab" x="${R-14}" y="${y-7}" text-anchor="end">${esc(r.a.n)} ${kinTemp(r.c)}</text>`;
+      g+=`<text class="cl" x="${R-14}" y="${y+14}" text-anchor="end">shares: ${esc(short(r.c.name))}</text>`;
+    });
+    hints.forEach(hn=>{ const x=X(nodeScore(hn)); g+=`<path d="M${x.toFixed(1)} ${yT-6} l5 6 -5 6 -5 -6z" fill="var(--kin)"/><text class="hn" x="${Math.min(x+8,R-120).toFixed(1)}" y="${yT+22}">💡 ${esc(short(hn.name))}</text>`; });
+    const solved=S.done;
+    const tipLabel = solved ? esc(T.n) : 'mystery animal';
+    g = `<path class="ink" d="M${L} ${yT} H${R-14}" stroke="var(--ink)" stroke-width="3"/>` + g +
+        `<circle cx="${R-4}" cy="${yT}" r="9" fill="${solved?(S.won?'var(--good)':'var(--muted)'):'var(--kin)'}"/><text x="${R-4}" y="${yT+4.5}" text-anchor="middle" style="fill:#fff;font-weight:800;font-size:12px">${solved?(S.won?'✓':'!'):'?'}</text>` +
+        `<text class="lab" x="${R-18}" y="${yT-8}" text-anchor="end" style="fill:var(--kin)">${tipLabel}</text>` +
+        `<text class="ax" x="${L}" y="${H-8}">← distant relatives</text><text class="ax" x="${R}" y="${H-8}" text-anchor="end">closer →</text>` +
+        (n ? '' : `<text class="ax" x="${W/2}" y="${top+12}" text-anchor="middle" style="font-size:18px">guess any animal to grow the tree</text>`);
+    const svg=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Family tree of your guesses">${g}</svg>`;
+
+    let hintHTML='';
+    if(hints.length){ const hn=hints[hints.length-1]; hintHTML=`<div class="hint">💡 The answer belongs to <b>${esc(hn.name)}</b>${KIN_DATED?` (a branch that split ${fmtMya(hn.age)} ago)`:''}.</div>`; }
+    const grp=(T.g||'animal').toLowerCase(); const startClue = C.startClue && !S.done ? `<div class="startclue">🔎 Clue: it's ${/^[aeiou]/.test(grp)?'an':'a'} <b>${esc(grp)}</b></div>` : '';
+    const head = `<div class="cladohead"><div><div class="sub">Closest so far</div><div style="font-weight:700;font-size:16px;margin-top:2px">${best?em(best.a)+' '+esc(best.a.n)+' · '+best.c.label:'No guesses yet'}</div></div><span class="hand">${n} branch${n===1?'':'es'}</span></div>`;
+    document.getElementById('stage').innerHTML=`${startClue}
+      <div class="panel clado">${head}${svg}${hintHTML}
+        ${S.done?'':`<div class="btns" style="margin:10px 4px 0">${C.noHints?'':'<button class="ghost" id="hintb">💡 Hint</button>'}<button class="ghost" id="giveup">🏳️ Give up</button></div>`}
+      </div>`;
+    if(!S.done){
+      const hb=document.getElementById('hintb'); if(hb) hb.onclick=()=>{ S.hints++; persist(); renderGame(); };
+      document.getElementById('giveup').onclick=()=>{ S.done=true; S.won=false; S.gaveUp=true; persist(); renderGame(); };
+    }
+    document.getElementById('rows').innerHTML='';
+  },
+
+  silhouette(T,G){
+    const n=S.done?6:S.guesses.length;
+    const blur=[16,11,7,4,2,0.5,0][n], scale=[3.1,2.5,2,1.6,1.25,1,1][n];
+    const r=rng(hash(T.id+'sil')); const ox=20+Math.round(r()*60), oy=20+Math.round(r()*60);
+    const filt = S.done ? 'none' : `brightness(0) blur(${blur}px)`;
+    const chips=[];
+    if(n>=2||S.done) chips.push(`<span class="chip">Group: <b>${esc(T.g)}</b></span>`);
+    if(n>=4||S.done) chips.push(`<span class="chip">Name starts with <b>${esc(T.n[0])}</b></span>`);
+    const pic = T.img ? `<img data-sil="${T.id}" alt="">` : T.e;
+    const credit = S.done && T.img ? `<div class="sub" style="margin-top:6px">Silhouette: <a href="${esc(T.img.url)}">${esc(T.img.by)}</a>, ${esc(T.img.lic)}</div>` : '';
+    document.getElementById('stage').innerHTML=`
+      <div class="panel" style="padding:10px"><div class="silbox"><div class="sil" style="filter:${filt};transform:scale(${S.done?1:scale});transform-origin:${ox}% ${oy}%">${pic}</div></div>
+      <div class="cluechips">${chips.join('')||'<span class="chip">Clues unlock after guesses 2 and 4</span>'}</div>${credit}</div>`;
+    document.getElementById('rows').innerHTML=S.guesses.slice().reverse().map(id=>{
+      const a=byId[id]; const ok=id===S.target; const c=ok?null:kin(id);
+      return `<div class="row"><div class="khead"><div class="nm"><span class="em">${ok?'✅':'❌'}</span>${esc(a.n)}</div>${ok||!c?'':`<div class="sub">${kinTemp(c)} ${esc(c.apart)}</div>`}</div></div>`;
+    }).join('');
+  },
+
+  vitals(T,G){
+    const n=S.done?99:S.guesses.length;
+    const clues=VITALS.clues.map(([k,get],i)=>({k,v:get(T),show:i<2||n>=i-1}));
+    document.getElementById('stage').innerHTML=`<div class="panel"><div class="clues">${clues.map((c,i)=>`<div class="clue ${c.show?'on':'lock'}" ${i===0?'style="grid-column:span 2"':''}><div class="k">${c.k}</div><div class="v">${c.show?esc(c.v):'🔒 after guess '+(i-1)}</div></div>`).join('')}</div>
+      <div class="legend"><span><i style="background:#bfe3c8"></i>within 25%</span><span><i style="background:#f6dca6"></i>within 2×</span><span>⬆️⬇️ the answer is higher / lower</span></div></div>`;
+    document.getElementById('rows').innerHTML=S.guesses.slice().reverse().map(id=>{
+      const a=byId[id], ok=id===S.target;
+      const cells=VITALS.stats.map(st=>{
+        const g=a[st.k], t=T[st.k];
+        if(g==null||t==null) return `<div class="vc c-bad"><small>${st.label}</small>${g==null?'?':st.fmt(g)}</div>`;
+        const ratio=Math.max(g,t)/Math.min(g,t);
+        const cls= ratio<=1.25?'c-good':ratio<=2?'c-warm':'c-bad';
+        const arrow= ratio<=1.25?'✓':(t>g?'⬆️':'⬇️');
+        return `<div class="vc ${cls}"><small>${st.label}</small>${st.fmt(g)} ${arrow}</div>`;
+      }).join('');
+      return `<div class="row"><div class="khead"><div class="nm"><span class="em">${ok?'✅':em(a)}</span>${esc(a.n)}</div><div class="sub">${a.g===T.g?'✓ same group':esc(a.g)}</div></div><div class="vgrid">${cells}</div></div>`;
+    }).join('');
+  },
+
+  habitat(T,G){
+    const n=S.done?99:S.guesses.length;
+    const wrong=S.guesses.filter(id=>id!==S.target).map(id=>byId[id]);
+    document.getElementById('stage').innerHTML=`<div class="panel" style="padding:10px">${mapSVG(T, S.done?[]:wrong)}
+      <div class="legend" style="margin:8px 4px 2px"><span><i style="background:#1f7a57"></i>mystery animal</span><span><i style="background:#e8843a"></i>your guesses</span><span><i style="background:#7a5bb5"></i>overlap</span></div>
+      <div class="cluechips">${HAB_CLUES.map(([k,get],i)=>`<span class="chip">${k}: <b>${n>i?esc(get(T)):'🔒'}</b></span>`).join('')}</div></div>`;
+    document.getElementById('rows').innerHTML=S.guesses.slice().reverse().map(id=>{
+      const a=byId[id], ok=id===S.target; const ov=Math.round(overlap(a,T)*100);
+      return `<div class="row"><div class="khead"><div class="nm"><span class="em">${ok?'✅':em(a)}</span>${esc(a.n)}</div><div class="ovl" style="color:${ok?'var(--good)':ov>=40?'#7a5bb5':ov>0?'#e8843a':'var(--muted)'}">${ok?'Match!':ov+'% range overlap'}</div></div></div>`;
+    }).join('');
+  },
+};
+
+function shareText(){
+  const G=GAMES[S.game];
+  if(G.share){ const lvl=S.level&&S.level!=='normal'?` [${S.level}]`:''; return `🌿 Clade · ${G.title}${lvl} ${S.mode==='daily'?'#'+(DAY+1):'(practice)'} ${G.share(S)}`; }
+  let line='';
+  if(S.game==='kinship') line=S.guesses.map(id=>{ const c=kin(id); return c?kinTemp(c):'⬜'; }).join('');
+  else line=S.guesses.map(id=>id===S.target?'🟩':'🟥').join('') + '⬜'.repeat(Math.max(0,(S.max??G.max)-S.guesses.length));
+  const max=S.max??G.max, lvl=S.level&&S.level!=='normal'?` [${S.level}]`:'';
+  const score = max===Infinity ? (S.won?`${S.guesses.length} guesses${S.hints?` (${S.hints} hint${S.hints>1?'s':''})`:''}`:'gave up') : (S.won?`${S.guesses.length}/${max}`:`X/${max}`);
+  return `🌿 Clade · ${G.title}${lvl} ${S.mode==='daily'?'#'+(DAY+1):'(practice)'} ${score}\n${line}`;
+}
+
+function renderResult(T,G){
+  if(G.result){ const r=G.result(S); T={n:r.name||'', sci:r.sci, f:r.fact, wp:r.wp, img:null, e:r.big}; S._res=r; } else S._res=null;
+  const big = T.img ? `<img data-sil="${T.id}" alt="" style="height:90px;filter:invert(1)">` : em(T);
+  const more = T.f ? `<p>🧠 ${esc(T.f)}</p>` : '';
+  const wiki = T.wp && !G.result ? `<p><a style="color:#fff" href="https://en.wikipedia.org/wiki/${encodeURIComponent(T.wp.replace(/ /g,'_'))}">Read about the ${esc(T.n.toLowerCase())} on Wikipedia →</a></p>` : '';
+  const sci = T.sci ? `<p style="opacity:.8"><i>${esc(T.sci)}</i></p>` : '';
+  document.getElementById('result').innerHTML=`
+    <div class="result" style="background:${S.won?G.color:'#5b615c'}">
+      <div class="big">${big}</div>
+      <h3>${S._res?esc(S._res.title):(S.won?'You got it!':'It was the…')+' '+esc(T.n)}</h3>${sci}
+      <p>${S._res?S._res.line:(S.won?((S.max??G.max)===Infinity?`Found in ${S.guesses.length} guesses.`:`Solved in ${S.guesses.length} of ${S.max??G.max}.`):'Better luck tomorrow.')}</p>
+      ${more}${wiki}
+      <div class="rb"><button id="share">Copy result</button>${S.mode==='daily'?`<button class="alt" id="prac">${CLADE.isUnlocked()?'∞':'🔒'} Practice →</button>`:`<button class="alt" id="again">${S.challenge?(CLADE.isUnlocked()?'∞ Practice →':'🔒 Practice →'):'Another one →'}</button>`}<button class="alt" id="home2">All games</button></div>
+      <div class="rb extra"></div>
+      <textarea class="sharebox" id="sharebox" rows="3" readonly></textarea>
+    </div>`;
+  document.getElementById('share').onclick=()=>{
+    const t=shareText();
+    const fallback=()=>{const b=document.getElementById('sharebox');b.value=t;b.style.display='block';b.select();toast('Select and copy the text below')};
+    try{ navigator.clipboard.writeText(t).then(()=>toast('Copied to clipboard'),fallback);}catch(e){fallback()}
+  };
+  const pr=document.getElementById('prac'); if(pr) pr.onclick=()=>{ location.hash=S.game+'-practice'; };
+  const ag=document.getElementById('again'); if(ag) ag.onclick=()=>{ if(S.challenge){ location.hash=S.game+'-practice'; return; } startGame(S.game,'practice',S.level); };
+  dispatchEvent(new CustomEvent('clade:result',{detail:{game:S.game, won:S.won, n:scoreN(), mode:S.mode, level:S.level, target:S.target, hints:S.hints||0, gaveUp:!!S.gaveUp, box:document.querySelector('#result .result')}}));
+  document.getElementById('home2').onclick=()=>{location.hash='home'};
+  if(S.won && S.guesses.length) window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ---------- Clade Unlimited page ---------- */
+function renderUnlimited(game){
+  document.body.dataset.game=game||'';
+  const G=game&&GAMES[game];
+  if(CLADE.isUnlocked()){ if(G){ location.hash=game+'-practice'; return; } }
+  app.innerHTML=`
+    <div class="top"><button class="back" id="back" aria-label="Back">←</button><div><h2>Clade Unlimited</h2><div class="num">a one-time unlock</div></div></div>
+    <div class="paywall panel">
+      <div class="seal" aria-hidden="true">∞</div>
+      ${CLADE.isUnlocked()?`<h3>You have Clade Unlimited</h3><p class="intro">Thank you for supporting Clade! Practice and difficulty are on in every game, and ads are off.</p>`:`
+      <h3>${G?`Practise ${esc(G.title)} as much as you like`:'For when one puzzle a day isn’t enough'}</h3>
+      <p class="intro">Daily puzzles are free, forever. Unlimited is for when one a day isn’t enough.</p>
+      <ul class="perks"><li>Endless practice rounds in every game</li><li>Easy, Normal and Hard difficulty</li><li>No ads</li><li>One-time purchase, not a subscription</li></ul>
+      <a class="buy" id="buy" href="${CLADE.checkoutUrl()}" target="_blank" rel="noopener">Unlock Unlimited · ${CLADE.PREMIUM.price}</a>
+      <p class="sub" id="paynote" style="min-height:18px"></p>
+      <details><summary class="sub">Already bought it on another device?</summary>
+        <form id="restoreform" class="inrow"><input type="email" id="remail" placeholder="Email you paid with" autocomplete="email" aria-label="Email you paid with"><button class="go">Restore</button></form>
+      </details>`}
+    </div>`;
+  document.getElementById('back').onclick=()=>{ location.hash = G ? game : 'home'; };
+  const buy=document.getElementById('buy'), note=document.getElementById('paynote');
+  if(buy) buy.onclick=()=>{ note.textContent='Finish checkout in the new tab. This page unlocks by itself when payment goes through.'; CLADE.pollUnlock(); };
+  const f=document.getElementById('restoreform');
+  if(f) f.onsubmit=async e=>{ e.preventDefault(); note.textContent='Checking…'; const ok=await CLADE.restore(document.getElementById('remail').value.trim()); note.textContent= ok?'':'We couldn’t find a purchase for that email. Check the spelling, or contact us.'; };
+  window.scrollTo(0,0);
+}
+
+/* ---------- routing ---------- */
+function route(){
+  const h=(location.hash||'').replace('#','');
+  const practice=/-practice$/.test(h), chal=/-challenge$/.test(h), g=h.replace(/-(practice|challenge)$/,'');
+  if(h==='credits'){ S=null; renderCredits(); }
+  else if(h==='unlimited'){ S=null; renderUnlimited(null); }
+  else if(GAMES[g] && chal){
+    // A friend's "beat me" link: the same practice puzzle, free to play without Unlimited.
+    const spec=load('clade:challenge');
+    if(!spec||spec.g!==g){ location.hash=g; return; }
+    if(S&&S.challenge&&S.challenge.id===spec.id) renderGame(); else startGame(g,'practice',spec.lv||'normal',spec);
+  }
+  else if(GAMES[g]){
+    if(practice && !CLADE.isUnlocked()){ S=null; renderUnlimited(g); }
+    else if(!S||S.game!==g||S.mode!==(practice?'practice':'daily')) startGame(g, practice?'practice':'daily');
+    else renderGame();
+  }
+  else { S=null; renderHome(); }
+  window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',route);
+loadGenerated().finally(async()=>{ try{ if(window.extendGames) await extendGames(); }catch(e){ console.error(e); } route(); });
+</script>
+<script src="kit.js"></script>
+<script src="games2.js"></script>
+<script src="games3.js"></script>
+<script src="clade-kit.js"></script>
+<script src="clade-extras.js"></script>
+</body>
+</html>

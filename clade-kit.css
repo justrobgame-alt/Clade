@@ -1,0 +1,32 @@
+/* Clade: kit colours + dark mode ("the forest at night") */
+:root{--kit-bg:var(--card);--kit-ink:var(--ink);--kit-muted:var(--muted);--kit-line:var(--line);--kit-acc:var(--green);--kit-chip:#efeadb}
+:root[data-theme=dark]{
+  --paper:#121814; --card:#1a221d; --ink:#e7eee8; --muted:#97a59b; --line:#2b362f;
+  --green:#5fb58a; --good:#5fb58a; --bad:#3a443d; --kit-chip:#26302a; color-scheme:dark;
+}
+:root[data-theme=dark] .gstat{background:#26302a}
+:root[data-theme=dark] .gstat.done{background:#1f3a2b;color:#8fd3ad}
+:root[data-theme=dark] .modes{background:#222b25}
+:root[data-theme=dark] .sugg div{border-bottom-color:#26302a}
+:root[data-theme=dark] .sugg div.sel,:root[data-theme=dark] .sugg div:hover{background:#26302a}
+:root[data-theme=dark] .kbar{background:#26302a}
+:root[data-theme=dark] .silbox{background:radial-gradient(circle at 50% 45%,#e9e4d6,#c9c2ae)}
+:root[data-theme=dark] .chip{background:#26302a}
+:root[data-theme=dark] .clue{background:#1f2822;border-color:#36433a}
+:root[data-theme=dark] .clue.on{background:var(--card);border-color:var(--line)}
+:root[data-theme=dark] .clue.lock .v{color:#5d6a61}
+:root[data-theme=dark] .vc{color:#1d1d1d}
+:root[data-theme=dark] .c-bad{background:#3a443d;color:#dfe7e1}
+:root[data-theme=dark] .map{background:#1b2c31}
+:root[data-theme=dark] .sharebox{background:#e7eee8}
+.brand{position:relative}
+.ck-tools{margin-left:auto;display:flex;align-items:center;gap:8px}
+.ck-streak{font-weight:700;font-size:14px;padding:6px 10px;border-radius:99px;background:var(--kit-chip)}
+.kit-theme{background:var(--card);border-color:var(--line);color:var(--ink)}
+.ck-btns{display:flex;gap:6px}
+.ck-btns .back{font-size:16px}
+.top{flex-wrap:wrap}
+.ck-stats{background:rgba(255,255,255,.14);border-radius:14px;padding:10px 8px 4px;margin:12px 0 4px}
+.ck-stats .kit-srow span{color:rgba(255,255,255,.85)}
+.ck-next{margin:0 0 6px;font-size:13.5px}
+@media (max-width:420px){.top .modes{margin-left:0}}

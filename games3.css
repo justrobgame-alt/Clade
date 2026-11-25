@@ -1,0 +1,75 @@
+/* Stage 3 themes: herbarium sheets, botanist's atlas, trade-route map, sunlit wall */
+
+/* ---- Plant Families: herbarium ---- */
+.herbarium{position:relative;background:#f4eedb;background-image:linear-gradient(rgba(120,100,60,.05) 1px,transparent 1px);background-size:100% 26px;border:1px solid #d8cba3;border-radius:16px;padding:12px;margin-bottom:12px;color:#33301f;box-shadow:0 6px 16px -12px rgba(70,50,10,.5)}
+.herbarium .rhead .hand{color:#7a6c43}
+.famhint{font-size:13px;margin:0 0 10px;color:#5d5434;line-height:1.5}
+.sheets{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.sheet{position:relative;aspect-ratio:3/4;border:1px solid #d9d0b4;background:#fffdf4;border-radius:5px;padding:14px 3px 6px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;transform:rotate(var(--rot));box-shadow:0 2px 5px -2px rgba(60,40,10,.35);transition:transform .12s,background .12s;color:#2c2a1d;cursor:pointer}
+.sheet .tape{position:absolute;top:-5px;left:50%;width:30px;height:11px;margin-left:-15px;background:rgba(232,214,160,.85);transform:rotate(-4deg);border-radius:2px}
+.sheet img{flex:1;min-height:0;max-width:85%;object-fit:contain;opacity:.75}
+.sheet .nm{font-size:11.5px;font-weight:600;line-height:1.15;text-align:center;word-break:break-word}
+.sheet.on{background:#5d7a2a;color:#fff;border-color:#4a6320;transform:rotate(0) scale(1.03)}
+.sheet.on img{filter:invert(1);opacity:.9}
+.hlabels{display:flex;flex-direction:column;gap:7px;margin-bottom:8px}
+.hlabels:empty{display:none}
+.hlabel{position:relative;border:1.5px solid #6b5d34;background:#fffaf0;border-radius:3px;padding:7px 10px;font-size:12.5px;animation:pop .25s ease;box-shadow:inset 0 0 0 3px #fffaf0,inset 0 0 0 4px #b9a874}
+.hlabel:nth-child(1){background:#eaf1d5}.hlabel:nth-child(2){background:#f6ecc8}.hlabel:nth-child(3){background:#dcebee}.hlabel:nth-child(4){background:#efe0ef}
+.hl-l{font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:700;font-size:15px}
+.hl-e{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#6b5d34;font-weight:700}
+.hl-m{margin-top:3px}
+.stamp{position:absolute;right:8px;top:8px;color:#b33a2a;border:2px solid #b33a2a;border-radius:4px;font-size:11px;font-weight:800;text-transform:uppercase;padding:1px 5px;transform:rotate(8deg);opacity:.8}
+.herbarium .ghost{background:#fffdf4;color:#33301f;border-color:#d8cba3}
+.herbarium .ghost:disabled,.herbarium .kit-btn:disabled{opacity:.45}
+.herbarium .kit-btn{background:#5d7a2a}
+.herbmsg{position:absolute;left:50%;top:44%;transform:translateX(-50%);z-index:3;background:#33301f;color:#fff;font-weight:700;padding:8px 14px;border-radius:10px;animation:pop .2s ease}
+:root[data-theme=dark] .herbarium{filter:brightness(.86)}
+
+/* ---- Plant Habitat: botanist's atlas (greener than Habitat) ---- */
+.atlaspanel.botan{background-color:#e6ead0}
+.atlaspanel.botan .atlas{background:#dfe8d6}
+.atlaspanel.botan .atlas .l{fill:#bcc79c}
+
+/* ---- Origins: trade-route map ---- */
+.tradepanel{background:#efe1c2;background-image:radial-gradient(circle at 80% 0%,rgba(255,255,255,.45),transparent 45%),radial-gradient(circle at 0% 100%,rgba(140,80,30,.15),transparent 55%);border:1px solid #c9a971;border-radius:18px;padding:12px;margin-bottom:12px;color:#3d2c17;box-shadow:inset 0 0 0 4px rgba(255,248,230,.5),0 6px 16px -12px rgba(80,50,10,.5)}
+.tradepanel .rhead .hand{color:#8a6a3e}
+.cropcard{display:flex;align-items:center;gap:12px;background:rgba(255,250,236,.75);border:1px dashed #b98e52;border-radius:12px;padding:8px 12px;margin-bottom:10px}
+.cropcard img{width:52px;height:52px;object-fit:contain}
+.cropcard .seed{font-size:36px}
+.cropcard .hand{font-size:18px;color:#8a6a3e;line-height:1}
+.cropcard b{font-family:Fraunces,Georgia,serif;font-size:24px}
+.cropcard .sub{color:#8a6a3e}
+.routes{background:#e9dcb8;border:1.5px solid #a9834a;border-radius:10px;cursor:crosshair;touch-action:manipulation}
+.routes .rhumb{stroke:#a9834a;stroke-width:.25;opacity:.45}
+.routes .l{fill:#c2a66e}
+.routes .pin path{fill:#b03a2a}
+.routes .route{fill:none;stroke:#7a3b1d;stroke-width:1.2;stroke-dasharray:3 2.2;animation:dash 1s linear}
+@keyframes dash{from{stroke-dashoffset:60}}
+.routes .zone{fill:rgba(47,107,79,.15);stroke:#2f6b4f;stroke-width:.5;stroke-dasharray:1.5 1.5}
+.routes .star path{fill:#2f6b4f;stroke:#fff;stroke-width:.6}
+.tradepanel .explain{background:rgba(255,250,236,.8);border-color:#c9a971;color:#3d2c17}
+.tradepanel .explain .more{color:#6d5530}
+.tradepanel .sub{color:#8a6a3e}
+.tradepanel .kit-btn{background:var(--ori)}
+.tradepanel .kit-btn:disabled{opacity:.5}
+:root[data-theme=dark] .tradepanel{filter:brightness(.84) saturate(.9)}
+
+/* ---- Leaf Shadow: sunlit wall ---- */
+.sunwall{position:relative;overflow:hidden;background:linear-gradient(160deg,#fff4d6,#f3dfae 60%,#e8cd93);border-radius:20px;padding:10px 10px 12px;margin-bottom:12px;box-shadow:inset 0 0 0 3px rgba(255,255,255,.5),0 10px 22px -14px rgba(90,60,0,.55)}
+.sunwall .leaves{position:absolute;inset:-20%;background:
+  radial-gradient(ellipse 18px 9px at 12% 20%,rgba(60,70,20,.10),transparent 70%),
+  radial-gradient(ellipse 22px 10px at 80% 12%,rgba(60,70,20,.10),transparent 70%),
+  radial-gradient(ellipse 16px 8px at 70% 80%,rgba(60,70,20,.09),transparent 70%),
+  radial-gradient(ellipse 20px 9px at 25% 85%,rgba(60,70,20,.08),transparent 70%);animation:sway 7s ease-in-out infinite alternate;pointer-events:none}
+@keyframes sway{to{transform:translate(8px,5px) rotate(2deg)}}
+.sunwall .silbox{background:radial-gradient(circle at 30% 25%,#fffbea,#f7e7bd 55%,#ecd39a);border-radius:12px;box-shadow:inset 0 0 0 1px rgba(150,110,40,.25)}
+.sunwall .chip{background:rgba(255,250,235,.8);color:#4a3a14}
+.sunwall .sub,.sunwall .sub a{color:#7a6030}
+:root[data-theme=dark] .sunwall{filter:brightness(.8)}
+@media (prefers-reduced-motion:reduce){.sunwall .leaves,.routes .route,.ecg .trace,.montop .rec{animation:none}.ecg .trace{stroke-dashoffset:0}}
+:root[data-theme=dark] .routes{background:#e9dcb8}
+:root[data-theme=dark] .atlas{background:#d8dfcf}
+:root[data-theme=dark] .atlaspanel.botan .atlas{background:#dfe8d6}
+:root[data-theme=dark] .atlaspanel .chip{background:rgba(255,250,235,.7);color:#3a2e1c}
+:root[data-theme=dark] .sunwall .chip{background:rgba(255,250,235,.8);color:#4a3a14}
+:root[data-theme=dark] .lightbox .chip{background:#2c2f36;color:#e7e2d4}
