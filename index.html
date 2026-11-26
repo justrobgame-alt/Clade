@@ -503,7 +503,7 @@ let KIN_DATED = true;
 function kin(id){
   if(id===S.target) return {name:'Same animal',score:1,match:true,label:'Match!',apart:''};
   const c=lca(id,S.target); if(!c) return null;
-  if(KIN_DATED) return {node:c,name:c.name,score:closeness(c.age),label:fmtMya(c.age),apart:fmtMya(c.age)+' apart'};
+  if(KIN_DATED){ const t=(c.est?'about ':'')+fmtMya(c.age); return {node:c,name:c.name,score:closeness(c.age),label:t,apart:t+' apart'}; }
   const path=PATH[S.target], depth=path.indexOf(c)+1;
   const score=Math.max(0.03, depth/(path.length+1));
   return {node:c,name:c.name,score,label:Math.round(score*100)+'% close',apart:'share '+c.name.replace(/^a branch within /,'')};
