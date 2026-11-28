@@ -172,7 +172,7 @@
     const sis = (C.sisters || []).filter(s => s.url && s.name !== C.name);
     return `<footer class="kit-footer">
       ${sis.length ? `<div class="kit-sis-h">More daily games from us</div><div class="kit-sis">${sis.map(s => `<a class="kit-sis-card" href="${esc(s.url)}" style="--sis:${esc(s.color || '#888')}"><span class="kit-sis-ic">${esc(s.icon || '★')}</span><span><b>${esc(s.name)}</b><small>${esc(s.tag || '')}</small></span></a>`).join('')}</div>` : ''}
-      <nav class="kit-links"><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a>${C.email ? `<a href="mailto:${esc(C.email)}">Contact</a>` : ''}${Kit.canInstall() ? `<button class="kit-install linklike" onclick="Kit.install()">Add to home screen</button>` : ''}</nav>
+      <nav class="kit-links"><a href="/guides/">Guides</a><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a>${C.email ? `<a href="mailto:${esc(C.email)}">Contact</a>` : ''}${Kit.canInstall() ? `<button class="kit-install linklike" onclick="Kit.install()">Add to home screen</button>` : ''}</nav>
       ${C.email ? `<p class="kit-muted">Questions or ideas: ${esc(C.email)}</p>` : ''}
       <p class="kit-muted">© ${new Date().getFullYear()} ${esc(C.name)}</p></footer>`;
   };
